@@ -1,0 +1,78 @@
+<div class="grid-header grid-row no-margin" ng-init="sortColumn=0">
+
+  <!--- Name -->
+  <div class="grid-cell grey-border-right white-border-bottom  cursor-pointer" ng-init="sorted = false">
+    <span ng-click="vm.sortMedicationOrders('includedObjects.medication.code.text', false); sorted=true; sortColumn = 1">Medication</span>
+    <span ng-if="sortColumn==1" ng-show="sorted" class="grid-header-sort-icon glyphicon glyphicon-sort-by-attributes"></span>
+  </div>
+
+  <!--- Type -->
+  <div class="grid-short-cell grid-cell white-border-bottom  grey-border-right cursor-pointer"
+         ng-mouseleave="showDoseTypeDropdown = false">
+    <span ng-click="vm.sortMedicationOrders('styleObjects.doseType.display', false); sorted=true; sortColumn = 2">Type</span>
+    <span ng-if="sortColumn==2" ng-show="sorted" class="grid-header-sort-icon glyphicon glyphicon-sort-by-attributes"></span>
+    
+    <span class="grid-header-dropdown-icon glyphicon glyphicon-filter" aria-hidden="true"
+            ng-click="showDoseTypeDropdown = !showDoseTypeDropdown" ng-init="showDoseTypeDropdown = false">
+    </span>
+
+    <!--- Filter dropdown -->
+    <ul class="grid-header-dropdown grey-background light-grey-border" ng-show="showDoseTypeDropdown">
+      <li ng-class="{'light-grey-background': hover1}" ng-mouseenter="hover1 = true" ng-mouseleave="hover1 = false"
+            ng-click="vm.removeMedicationFilters(); showDoseTypeDropdown = false">Show all</li>   
+      <li ng-class="{'light-grey-background': hover2}" ng-mouseenter="hover2 = true" ng-mouseleave="hover2 = false"
+            ng-click="vm.filterMedicationOrders('doseType.parameter', 'additionalInstructions'); showDoseTypeDropdown = false">Only targets</li>
+      <li ng-class="{'light-grey-background': hover3}" ng-mouseenter="hover3 = true" ng-mouseleave="hover3 = false"
+            ng-click="vm.filterMedicationOrders('doseType.parameter', 'rateRatio'); showDoseTypeDropdown = false">
+            Only infusions</li>      
+      <li ng-class="{'light-grey-background': hover4}" ng-mouseenter="hover4 = true" ng-mouseleave="hover4 = false"
+            ng-click="vm.filterMedicationOrders('doseType.parameter', 'timing'); showDoseTypeDropdown = false">
+            Only time intervals</li>     
+      <li ng-class="{'light-grey-background': hover5}" ng-mouseenter="hover5 = true" ng-mouseleave="hover5 = false"
+            ng-click="vm.filterMedicationOrders('doseType.parameter', 'asNeededBoolean'); showDoseTypeDropdown = false">
+            Only as needed</li>                 
+    </ul>
+  </div>
+
+  <!--- Dose -->
+  <div class="grid-long-cell grid-cell white-border-bottom grey-border-right cursor-pointer hide-for-small-screen">
+    <span ng-click="vm.sortMedicationOrders('styleObjects.doseType.display', false); sorted=true; sortColumn = 3">Dose</span>
+    <span ng-if="sortColumn==3" ng-show="sorted" class="grid-header-sort-icon glyphicon glyphicon-sort-by-attributes"></span>
+  </div>
+
+  <!--- Start time -->
+  <div class="grid-short-cell grid-cell white-border-bottom grey-border-right cursor-pointer">
+    <span ng-click="vm.sortMedicationOrders('dosageInstruction[0].timing.event', false); sorted=true; sortColumn = 4">
+      Start
+    </span>
+    <span ng-if="sortColumn==4" ng-show="sorted" class="grid-header-sort-icon glyphicon glyphicon-sort-by-attributes"></span>
+
+  </div>
+
+  <!--- Active -->
+  <div class="grid-short-cell grid-cell grey-border-right white-border-bottom cursor-pointer" 
+        ng-class="{'white-border-bottom': vm.shownMedicationList.length > 0}" ng-mouseleave="showActiveDropdown = false">
+    <span ng-click="vm.sortMedicationOrders('styleObjects.isActive', true); sorted=true; sortColumn = 5">Active</span>
+    <span ng-if="sortColumn==5" ng-show="sorted" class="grid-header-sort-icon glyphicon glyphicon-sort-by-attributes"></span>
+
+    <span class="grid-header-dropdown-icon glyphicon glyphicon-filter" aria-hidden="true"
+            ng-click="showActiveDropdown = !showActiveDropdown" ng-init="showActiveDropdown = false">
+    </span>  
+
+    <!--- Filter dropdown -->
+    <ul class="grid-header-dropdown grey-background light-grey-border" ng-show="showActiveDropdown">
+      <li ng-class="{'light-grey-background': hover1}" ng-mouseenter="hover1 = true" ng-mouseleave="hover1 = false"
+            ng-click="vm.removeMedicationFilters(); showActiveDropdown = false">Show all</li>   
+      <li ng-class="{'light-grey-background': hover2}" ng-mouseenter="hover2 = true" ng-mouseleave="hover2 = false"
+            ng-click="vm.filterMedicationOrders('isActive', true); showActiveDropdown = false">Only on</li>
+      <li ng-class="{'light-grey-background': hover3}" ng-mouseenter="hover3 = true" ng-mouseleave="hover3 = false"
+            ng-click="vm.filterMedicationOrders('isActive', false); showActiveDropdown = false">Only off</li>      
+    </ul>
+  </div>
+
+  <!--- Status -->
+  <div class="grid-fixed-cell grid-cell white-border-bottom">
+    <div class="medication-status-cell"></div>
+  </div>
+
+</div>

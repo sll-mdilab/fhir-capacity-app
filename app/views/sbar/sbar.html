@@ -1,0 +1,389 @@
+<div class="sbar-container">
+
+  <!--- Header  -->
+  <div class="row sbar-header grey-background white-border-bottom">
+    <div class="col-md-6 no-padding">
+      <div class="sbar-box sbar-left-box sbar-header-left">
+        <h1 class="cursor-pointer" ng-click="vm.changeLocation('overview', vm.config)">Innovationslabbet</h1>
+      </div>
+    </div>
+
+    <div class="col-md-6 no-padding">
+      <div class="sbar-box sbar-right-box sbar-header-right">
+        
+        <!--- Practitioner information -->
+        <div class="sbar-header-info">
+          <p>
+            <span>From: </span>
+            <span class="green-font margin-right-20" ng-bind="vm.config.referralRequest.includedObjects.requester.name.text"
+                  ng-class="{ 'text-decoration-underline': 
+                  vm.config.referralRequest.includedObjects.requester.id === vm.config.practitioner.id }">
+            </span>
+          </p>
+          <p>
+            <span>To: </span>
+            <span class="yellow-font" ng-bind="vm.config.referralRequest.includedObjects.recipient.name.text"
+                  ng-class="{ 'text-decoration-underline': 
+                  vm.config.referralRequest.includedObjects.recipient === vm.config.practitioner }">
+            </span>
+          </p>
+        </div>
+
+        <!--- Progress -->
+        <div class="sbar-header-progress">
+          <div class="sbar-header-complete-sbar" ng-show="vm.allChecked">
+            <button class="button green-button" ng-click="vm.completeSbar()"></button>
+          </div>
+          <span class="sbar-header-progress-label" ng-show="!vm.allChecked">
+          {{ vm.checkboxCompleted | number:0 }} %
+          </span>
+          <div class="sbar-header-progress-bar" ng-show="!vm.allChecked">
+            <div class="green-background sbar-header-progress-bar-field" 
+                      ng-style="{'width': + vm.checkboxCompleted + '%'}"></div>
+            <div class="red-background sbar-header-progress-bar-field" 
+                      ng-style="{'width': + vm.checkboxRemaining + '%'}"></div>
+          </div>
+        </div>
+      </div>   
+    </div>
+  
+  </div>
+  <div class="row">
+    
+    <!-- S Box -->
+    <div class="col-md-6 no-padding">
+      <div class="sbar-box sbar-letter-box sbar-left-box sbar-s-data-box">
+        <div class="sbar-letter-box-header white-border-bottom">
+          <h2 class="no-margin"><span class="sbar-letter-box-header-capital">S</span> - Situation</h2>
+          <input type="checkbox" ng-model="vm.sProgress.allChecked" ng-change="vm.checkAllInSituationBox()">
+          </input>
+        </div>
+        <div class="row sbar-letter-box-content grey-background padding-10">
+          <div class="row">
+          
+          <!-- S-box Left Content -->
+            <div class="col-sm-6 sbar-letter-box-left-content">
+              <div>
+                <p class="sbar-letter-box-content-header">Patient:</p>
+                <p class="sbar-checkbox-field margin-bottom-5 no-padding" 
+                      ng-repeat="information in vm.patientInformation">
+                  <input type="checkbox" ng-model="information.checked" ng-change="vm.countCheckboxProgress()"></input>
+                  <label>
+                    <span ng-bind="information.label"></span>
+                    <span ng-bind="information.value"></span>
+                  </label>
+                </p>
+              </div>
+              <div class="margin-top-20" ng-show="vm.patientRelativesInformation.length > 0">
+                <p class="sbar-letter-box-content-header">Relatives: </p>
+                <p class="sbar-checkbox-field margin-bottom-5" 
+                      ng-repeat="information in vm.patientRelativesInformation">
+                  <input type="checkbox" ng-model="information.checked" ng-change="vm.countCheckboxProgress()"></input>
+                  <label>
+                    <span ng-bind="information.label"></span>
+                    <span ng-bind="information.value"></span>
+                  </label>
+                </p>
+              </div>            
+            </div>  
+            
+            <!-- S-box Right Content -->
+            <div class="col-sm-6 sbar-letter-box-right-content">
+               <div class="margin-bottom-20" ng-show="vm.patientContactReasonInformation.length > 0">
+                <p class="sbar-letter-box-content-header">
+                  Reason for contact: 
+                </p>
+                <p class="sbar-checkbox-field margin-bottom-5" 
+                      ng-repeat="information in vm.patientContactReasonInformation">
+                  <input type="checkbox" ng-model="information.checked" ng-change="vm.countCheckboxProgress()"></input>
+                  <label>
+                    <span ng-bind="information.value"></span>
+                  </label>
+                </p>
+              </div>
+              <div class="margin-bottom-20">
+                <p class="sbar-letter-box-content-header">Status: </p>
+                <p class="sbar-checkbox-field margin-bottom-5" 
+                      ng-repeat="information in vm.patientStatusInformation">
+                  <input type="checkbox" ng-model="information.checked" ng-change="vm.countCheckboxProgress()"></input>
+                  <label>
+                    <span ng-bind="information.label"></span>
+                    <span ng-bind="information.value"></span>
+                  </label>
+                </p>
+              </div>
+              <div class="margin-bottom-20">
+                <p class="sbar-letter-box-content-header">Care Provider: </p>
+                <p class="sbar-checkbox-field margin-bottom-5" 
+                      ng-repeat="information in vm.patientCareGiverInformation">
+                  <input type="checkbox" ng-model="information.checked" ng-change="vm.countCheckboxProgress()"></input>
+                  <label>
+                    <span ng-bind="information.label"></span>
+                    <span ng-bind="information.value"></span>
+                  </label>
+                </p>
+              </div>                          
+            </div>  
+          </div>
+        </div>       
+      </div>
+    </div>
+
+
+    <!-- B Box -->
+    <div class="col-md-6 no-padding">
+      <div class="sbar-box sbar-letter-box sbar-right-box sbar-b-data-box">
+        <div class="sbar-letter-box-header white-border-bottom">
+          <h2 class="no-margin"><span class="sbar-letter-box-header-capital">B</span> - Bakgrund</h2>
+          <input type="checkbox" ng-model="vm.bProgress.allChecked" ng-change="vm.checkAllInBackgroundBox()"></input>
+        </div>
+        <div class="sbar-letter-box-content grey-background padding-10">
+          
+          <!-- Completed activity filters -->
+          <div class="row no-padding margin-top-5 margin-bottom-10" ng-if="vm.shownCompletedEncounters.length > 0">
+            <div class="col-sm-4 styled-select colored-select colored-select-left light-grey-select">
+              <select ng-model="vm.organizationFilter"
+                      ng-change="vm.updateShownCompletedEncounters()"
+                      ng-options="option.name for option in vm.allInvolvedOrganizations track by option.id"></select>
+            </div>
+            <div class="col-sm-4 styled-select colored-select colored-select-middle light-grey-select">
+              <select ng-model="vm.medicationFilter"
+                      ng-change="vm.updateShownCompletedEncounters()"
+                      ng-options="option.name for option in vm.allInvolvedMedications track by option.id"></select>
+            </div>
+            <div class="col-sm-4 styled-select colored-select colored-select-right light-grey-select">
+              <select ng-model="vm.icdFilter"
+                      ng-change="vm.updateShownCompletedEncounters()"
+                      ng-options="option.name for option in vm.allInvolvedIcds track by option.id"></select>
+            </div>
+          </div>
+
+          <!-- Completed activities -->
+          <p class="sbar-letter-box-content-header" ng-if="vm.shownCompletedEncounters.length > 0">Completed activities:</p>
+          <div class="sbar-expandable-row sbar-checkbox-field margin-bottom-10" 
+                  ng-init="isExpanded = false"
+                  ng-repeat="information in vm.shownCompletedEncounters | reverse">
+            <input type="checkbox" ng-model="information.checked" ng-change="vm.countCheckboxProgress()"></input>
+            <div class="sbar-encounter-label">
+              <label class="sbar-encounter-label-left" ng-click="isExpanded = !isExpanded">
+                <span ng-bind="information.type[0].text"></span>,
+                <span ng-bind="information.includedObjects.primaryPerformer.name.text"></span>
+                (<span ng-bind="information.includedObjects.serviceProvider.name"></span>)
+              </label>
+
+              <!-- Right side information -->
+              <label class="float-right sbar-encounter-label-right" ng-click="isExpanded = !isExpanded">
+                <span ng-bind="information.styleObjects.formattedStart"></span>
+                <span>
+                  <span class="glyphicon glyphicon-triangle-bottom" ng-show="!isExpanded"></span>
+                  <span class="glyphicon glyphicon-triangle-top" ng-show="isExpanded"></span>
+                </span>
+              </label>
+            </div>
+
+            <!-- Expandable information -->
+            <div class="sbar-expandable-row-content light-grey-background" ng-show="isExpanded"
+                  ng-click="isExpanded = !isExpanded">
+              <p class="margin-bottom-10" ng-show="information.includedObjects.sentReferral.supportingInformation.length > 0">
+                <span class="annotation annotation-tag {{tag.type}}-annotation" ng-repeat="tag in information.includedObjects.sentReferral.supportingInformation">
+                  {{ tag.display }} 
+                </span>
+              </p>
+              <p class="no-margin" ng-bind-html="information.includedObjects.sentReferral.description" ng-show="information.includedObjects.sentReferral.description"></p>
+              <p class="no-margin" ng-show="!information.includedObjects.sentReferral.description">No additional information</p>
+            </div>
+          </div>
+
+          <!-- Pre-anestesia questionnaire responses -->
+          <p class="sbar-letter-box-content-header" ng-if="vm.questionnaireResponses.length > 0">Questionnaires:</p>
+          <div class="sbar-expandable-row sbar-checkbox-field margin-bottom-10" ng-if="vm.questionnaireResponses.length > 0"
+                  ng-repeat="response in vm.questionnaireResponses" ng-init="isExpanded = false">
+            <input type="checkbox" ng-model="response.checked" ng-change="vm.countCheckboxProgress()"></input>
+            <div class="sbar-encounter-label">
+              <label class="sbar-encounter-label-left" ng-click="isExpanded = !isExpanded">
+                <span>Pre-anestesia</span>,
+                <span ng-bind="response.includedObjects.encounter.includedObjects.primaryPerformer.name.text"></span>
+                (<span ng-bind="response.includedObjects.encounter.includedObjects.serviceProvider.name"></span>)
+              </label>
+
+              <!-- Right side information -->
+              <label class="float-right sbar-encounter-label-right" ng-click="isExpanded = !isExpanded">
+                <span ng-bind="response.styleObjects.formattedStart"></span>
+                <span>
+                  <span class="glyphicon glyphicon-triangle-bottom" ng-show="!isExpanded"></span>
+                  <span class="glyphicon glyphicon-triangle-top" ng-show="isExpanded"></span>
+                </span>
+              </label>
+            </div>
+
+            <!-- Expandable information -->
+            <div class="sbar-expandable-row-content light-grey-background" ng-show="isExpanded"
+                  ng-click="isExpanded = !isExpanded">
+              <p ng-bind="response.styleObjects.overallAssessment"></p>
+              <p class="yellow-font no-margin" ng-click="vm.changeLocation('pre-anestesia', vm.config)">More details</p>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div> 
+ 
+  </div>
+  <div class="row">
+
+    <!-- A Box -->
+    <div class="col-md-6 no-padding">
+      <div class="sbar-box sbar-letter-box sbar-left-box sbar-a-data-box">
+        <div class="sbar-letter-box-header white-border-bottom">
+          <h2 class="no-margin"><span class="sbar-letter-box-header-capital">A</span> - Aktuellt tillstånd</h2>
+          <input type="checkbox" ng-model="vm.aProgress.allChecked" ng-change="vm.checkAllInAssessmentBox()"></input>
+        </div>
+         <div class="sbar-letter-box-content grey-background padding-10">
+          <div class="sbar-cockpit-light" ui-view="cockpit-light">
+          </div>
+          <div class="row margin-top-10">
+            
+            <!-- A-box Left Content -->
+              <div class="col-sm-6 sbar-letter-box-left-content">
+                <div>
+                  <p class="sbar-checkbox-field margin-bottom-10" 
+                        ng-class="{ 'sbar-organ-list': vm.aMode==vm.aModeList.organ }"
+                        ng-repeat="information in vm.patientVitalParameterInformation">
+                    <input type="checkbox" ng-model="information.checked" ng-change="vm.countCheckboxProgress()"></input>
+                    </input>
+                    
+                    <!-- Left side label -->
+                    <label>
+                      <img class="sbar-organ-icon" ng-show="vm.aMode==vm.aModeList.organ" ng-src="{{information.imageUrl}}"></img>
+                      <span ng-show="vm.aMode==vm.aModeList.abc" ng-bind="information.shortLabel"></span>
+                      <span class="green-font" ng-bind="information.longLabel"></span>
+                    </label>
+                    
+                    <!-- Right side label -->
+                    <label class="float-right" ng-class="{ 'organ-row' : vm.aMode==vm.aModeList.organ }">
+                      <ng-pluralize class="sbar-assessment-note yellow-font text-decoration-underline cursor-pointer" 
+                              ng-if="information.noCirculationAnnotations > 0" 
+                              ng-click="vm.changeLocation(information.link, vm.config)"
+                              count="information.noCirculationAnnotations" when="{'1': '1 note', 
+                                        'other': '{{ information.noCirculationAnnotations }} notes'}">
+                      </ng-pluralize>
+                      <span class="sbar-assessment-note green-font" ng-if="information.noCirculationAnnotations <= 0">
+                        ua
+                      </span>
+                    </label>
+                  </p>
+                </div>        
+              </div>
+              
+              <!-- A-box right Content -->
+              <div class="col-sm-6 sbar-letter-box-right-content">
+                <div class="margin-top-5">
+                  <p class="sbar-checkbox-field margin-bottom-5" 
+                        ng-repeat="information in vm.patientBasicStatusInformation">
+                    <input type="checkbox" ng-model="information.checked" ng-change="vm.countCheckboxProgress()"></input>
+                    </input>
+                    <label>
+                      <span ng-bind="information.label"></span>
+                    </label>
+                    <label class="float-right">
+                      <span class="green-font" ng-bind="information.note"></span>
+                    </label>
+                  </p>
+                </div>
+
+                <div class="margin-top-20">
+                  <p class="sbar-checkbox-field margin-bottom-5" 
+                        ng-repeat="information in vm.patientAdditionalStatusInformation">
+                    <input type="checkbox" ng-model="information.checked" ng-change="vm.countCheckboxProgress()"></input>
+                    </input>
+                    <label>
+                      <span ng-bind="information.label"></span>
+                    </label>
+
+                    <!-- order information -->
+                    <label class="float-right">
+                      <span class="yellow-font text-decoration-underline cursor-pointer" 
+                              ng-click="vm.changeLocation(information.link, vm.config)" 
+                              ng-if="information.link" ng-bind="information.note">
+                      </span>
+                      <span class="green-font" ng-if="!information.link" ng-bind="information.note"></span>
+                    </label>
+                  </p>
+                </div> 
+              </div>
+            </div>  
+        </div> 
+      </div>
+    </div>
+    
+    <!-- R Box -->
+    <div class="col-md-6 no-padding">
+      <div class="sbar-box sbar-letter-box sbar-right-box sbar-r-data-box">
+        <div class="sbar-letter-box-header white-border-bottom">
+          <h2 class="no-margin"><span class="sbar-letter-box-header-capital">R</span> - Rekommendation</h2>
+          <input type="checkbox" ng-model="vm.rProgress.allChecked" ng-change="vm.checkAllInRecommendationBox()"></input>
+        </div>
+        <div class="sbar-letter-box-content grey-background padding-10">
+          
+          <!-- Typeahead comment box -->
+          <div>
+            <p class="sbar-letter-box-content-header">Notes: </p>
+            <div contenteditable mentio 
+              mentio-typed-term="noteTypedTerm" 
+              class="long-text-input light-grey-background cursor-pointer" 
+              mentio-id="'noteArea'" 
+              ng-model="vm.recommendationNotes" 
+              ng-blur="vm.updateRecommendationNotes()" 
+              placeholder="Type notes here..">
+            </div>
+            <mentio-menu mentio-for="'noteArea'"
+              class="mentio-menu-list" 
+              mentio-trigger-char="'#'" 
+              mentio-template-url="views/sbar/medication-menu.tpl.html"
+              mentio-items="vm.medicationList" 
+              mentio-search="vm.searchMedication(term)"
+              mentio-select="vm.getMedication(item)">
+            </mentio-menu>
+            <mentio-menu mentio-for="'noteArea'"
+              class="mentio-menu-list" 
+              mentio-trigger-char="'!'" 
+              mentio-template-url="views/sbar/icd-menu.tpl.html"
+              mentio-items="vm.icdCodeList" 
+              mentio-search="vm.searchIcdCode(term)"
+              mentio-select="vm.getIcdCode(item)">
+            </mentio-menu>
+          </div>
+
+          <!-- Planned activities -->
+          <div class="margin-top-10">
+            <p class="sbar-letter-box-content-header" ng-if="vm.shownPlannedEncounters.length > 0">Planned activities:</p>
+            <div class="sbar-checkbox-field margin-bottom-10" 
+                  ng-if="vm.shownPlannedEncounters.length > 0"
+                  ng-init="isExpanded = false"
+                  ng-repeat="information in vm.shownPlannedEncounters | reverse">
+              <input type="checkbox" ng-model="information.checked" ng-change="vm.countCheckboxProgress()"></input>
+              <div class="sbar-encounter-label">
+                <label class="sbar-encounter-label-left">
+                  <span ng-bind="information.type[0].text"></span>,
+                  <span ng-bind="information.includedObjects.primaryPerformer.name.text"></span>
+                  (<span ng-bind="information.includedObjects.serviceProvider.name"></span>)
+                </label>
+
+                <!-- Right side information -->
+                <label class="float-right sbar-encounter-label-right">
+                  <span ng-bind="information.start"></span>
+                </label>
+              </div>
+            </div>
+          </div>            
+        </div> 
+      </div>
+    </div>   
+
+  </div>
+
+  <!-- Modal -->
+  <modal-dialog show="vm.showModal" complete-button-label="'Complete'" complete-function="vm.completeSbar">
+    <h1>SBAR Completed?</h1>
+  </modal-dialog>
+
+</div>

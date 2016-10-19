@@ -1,0 +1,70 @@
+
+<!--- Icon bar -->
+<div class="circulation-parameter-toolbox-iconbar" ng-hide="vm.manualObservationVariables[parameterCode].showInputFields ||
+         vm.intervalSelectVariables[parameterCode].showIntervalSelect">
+  <span class="glyphicon glyphicon-edit cursor-pointer" 
+            ng-click="vm.updateActiveIntervalSelectToolbox(parameterCode)"></span>
+  <span class="glyphicon glyphicon-plus cursor-pointer margin-top-10" 
+            ng-click="vm.updateActiveManualObservationToolbox(parameterCode)"></span>
+</div>
+
+
+<!--- Annotation toolbox -->
+<div class="circulation-parameter-toolbox-annotation" 
+          ng-show="vm.intervalSelectVariables[parameterCode].showIntervalSelect">
+  <span class="circulation-parameter-toolbox-header">Annotation</span>
+  <span class="glyphicon glyphicon-remove-circle circulation-parameter-toolbox-close" 
+            ng-click="vm.updateActiveIntervalSelectToolbox(parameterCode)"></span>
+ 
+  <!--- Inputs -->
+  <input class="margin-top-5 margin-bottom-5 light-grey-background" 
+            ng-model="vm.intervalSelectVariables[parameterCode].annotationText"/>
+
+  <!--- Interval labels -->
+  <div class="circulation-parameter-toolbox-bottom-row circulation-parameter-toolbox-text">
+    <span class="show-for-medium-screen hide-for-small-screen">Start:</span>
+    <span class="hide-for-medium-screen">Start time:</span>
+    <span ng-bind="vm.intervalSelectVariables[parameterCode].minTime.formattedTime"></span>
+    <br>
+    <span class="show-for-medium-screen hide-for-small-screen">End:</span>
+    <span class="hide-for-medium-screen">End time:</span>
+    <span ng-bind="vm.intervalSelectVariables[parameterCode].maxTime.formattedTime"></span>
+  </div>
+
+  <!--- Add button -->
+  <button class="circulation-parameter-toolbox-add-button button green-button" 
+          ng-class="{'red-button': vm.intervalSelectVariables[parameterCode].annotationText === ''}"
+          ng-disabled="vm.intervalSelectVariables[parameterCode].annotationText === ''"
+          ng-click="vm.createAnnotationObservation(circulationParameter)">
+    <span class="glyphicon glyphicon-plus"></span>
+  </button>         
+</div>
+
+
+<!--- Manual observation toolbox -->
+<div class="circulation-parameter-toolbox-observation" ng-show="vm.manualObservationVariables[parameterCode].showInputFields">
+  <div>
+    <span class="circulation-parameter-toolbox-header">Observation</span>
+    <span class="glyphicon glyphicon-remove-circle circulation-parameter-toolbox-close" 
+              ng-click="vm.updateActiveManualObservationToolbox(parameterCode)"></span>
+  </div>
+
+  <!--- Inputs -->
+  <input type="text" class="light-grey-background margin-top-5 margin-bottom-5" 
+            ng-model="vm.manualObservationVariables[parameterCode].value"/> 
+  <input time-input type="text" class="circulation-parameter-toolbox-bottom-row light-grey-background" 
+            time-variable="vm.manualObservationVariables[parameterCode].date"/>
+
+  <!--- Add button -->
+  <button class="circulation-parameter-toolbox-add-button button green-button" 
+          ng-class="{'red-button': vm.manualObservationVariables[parameterCode].value === '' || 
+                    vm.manualObservationVariables[parameterCode].date === null}"
+          ng-disabled="vm.manualObservationVariables[parameterCode].value === '' || 
+                    vm.manualObservationVariables[parameterCode].date === null"
+          ng-click="vm.createManualObservation(circulationParameter)">
+    <span class="glyphicon glyphicon-plus"></span>
+  </button>          
+</div>
+
+
+  

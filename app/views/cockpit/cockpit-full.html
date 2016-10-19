@@ -1,0 +1,132 @@
+
+<div class="container">
+
+  <div class="row">
+    <div class="narrow-main-content">
+
+      <!--- Patient details -->
+      <div class="row patient-details">
+        <div class="col-xs-6 patient-details-left no-padding">
+          <h2 ng-bind="vm.config.patient.name[0].text"></h2>
+        </div>
+        <div class="col-xs-6 patient-details-right no-padding">
+          <h2 ng-bind="vm.config.patient.id"></h2>
+        </div>
+      </div>
+
+      <!--- Cockpit container -->
+      <div class="framed framed-rounded">
+        <div class="row no-margin">
+
+          <!--- Left section -->
+          <div class="col-xs-3 col-sm-2 no-padding">
+            <span class="no-signal-indicator blink red-background heart-rate" 
+                      ng-show="vm.noSignal[vm.defaultParameters.heartRate.code]">
+            </span>
+
+            <!--- Heart rate gauge -->
+            <div class="gauge-wrapper heart-rate">
+              <fhir-linear-gauge id="heart-rate-gauge" 
+                        chart-data="vm.circulationParameters[vm.defaultParameters.heartRate.code].data"
+                        no-signal="vm.noSignal[vm.defaultParameters.heartRate.code]"
+                        gauge-config="vm.config.parameterConfig[vm.defaultParameters.heartRate.code]"
+                        orientation="vm.orientation.left"></fhir-linear-gauge>
+            </div>
+          </div>
+
+          <!--- Top middle section -->
+          <div class="col-xs-6 col-sm-8">
+            <div class="row">
+              <div>
+                <div class="row button-row">
+                  <div class="button-col">
+                    <a href="" class="indicator-button warn white-font">Vent</a>
+                  </div>
+                  <div class="button-col">
+                    <a href="" class="indicator-button warn white-font">Pump</a>
+                  </div>
+                  <div class="button-col">
+                    <a href="" class="indicator-button warn white-font">Vitals</a>
+                  </div>
+                </div>
+                <div class="row button-row">
+                  <div class="button-col">
+                    <a href="" class="indicator-button info white-font">Lab</a>
+                  </div>
+                  <div class="button-col">
+                    <a href="" class="indicator-button info white-font">Level</a>
+                  </div>
+                  <div class="button-col">
+                    <a href="" class="indicator-button info white-font">Press</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--- Temperature field -->
+            <div class="row">
+              <span class="temperature">
+                Temp. {{ vm.temperatureParameters[vm.defaultParameters.temperature.code].data.primaryData.observations[0].resource.valueQuantity.value | number:1}} &#8451;
+              </span>
+            </div>
+
+            <!--- Bar charts -->
+            <div class="row">
+              <div class="bar-chart-wrapper gas">
+                <fhir-bar-chart chart-data="vm.barData" chart-config="vm.barConfig" parameter-list="vm.otherParameters"></fhir-bar-chart>
+              </div>
+            </div>
+          </div>
+
+          <!--- Right section -->
+          <div class="col-xs-3 col-sm-2 no-padding">
+            <span class="no-signal-indicator blink red-background saturation" ng-show="vm.noSignal[vm.defaultParameters.saturation.code]">
+            </span>
+
+            <!--- Saturation gauge -->
+            <div class="gauge-wrapper saturation">
+              <fhir-linear-gauge id="saturation-gauge" 
+                        chart-data="vm.circulationParameters[vm.defaultParameters.saturation.code].data"
+                        no-signal="vm.noSignal[vm.defaultParameters.saturation.code]"
+                        gauge-config="vm.config.parameterConfig[vm.defaultParameters.saturation.code]"
+                        orientation="vm.orientation.right"></fhir-linear-gauge>
+            </div>
+          </div>
+        </div>
+
+        <!--- Bottom section -->
+        <div class="row no-margin">
+
+          <!--- Blood pressure gauge -->
+          <div class="col-xs-12 gauge-wrapper pressure no-padding">
+              <span class="no-signal-indicator blink red-background pressure" ng-show="vm.noSignal[vm.defaultParameters.bloodPressure.code]">
+              </span>
+            <fhir-linear-gauge id="pressure-gauge" 
+                      chart-data="vm.circulationParameters[vm.defaultParameters.bloodPressure.code].data"
+                      no-signal="vm.noSignal[vm.defaultParameters.bloodPressure.code]"
+                      gauge-config="vm.config.parameterConfig[vm.defaultParameters.bloodPressure.code]"
+                      orientation="vm.orientation.bottom"></fhir-linear-gauge>
+          </div>
+        </div>
+
+      </div>
+    </div> <!--- End of cockpit container -->
+
+    <!-- Waveform content -->
+    <div class="waveform-container">
+      <div class="framed framed-rounded waveform-wrapper"
+           ng-class="{'heart-rate-waveform': vm.activeWaveform === vm.displayWaveformOptions.heartRate, 'blood-pressure-waveform': vm.activeWaveform === vm.displayWaveformOptions.bloodPressure, 'saturation-waveform': vm.activeWaveform === vm.displayWaveformOptions.saturation}">
+        <fhir-waveform-canvas chart-data="vm.activeWaveformData"
+                       chart-config="vm.activeWaveformConfig"></fhir-waveform-canvas>
+      </div>
+      <div class="waveform-options-list-wrapper">
+        <ul class="waveform-options-list">
+          <li ng-repeat="(k,v) in vm.displayWaveformOptions" class="light-grey-background" ng-class="{active: v === vm.activeWaveform}">
+            <a href="" class="white-font" ng-click="vm.changeActiveWaveform(k)">{{v.displayName}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>

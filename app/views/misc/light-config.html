@@ -1,0 +1,66 @@
+<div class="row">
+  <hr style="border-top:1px dashed #666">
+</div>
+
+<!--- Datasource for all -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="styled-select colored-select light-grey-select input-group">
+      <span class="input-group-label light-grey-background grey-border-right" id="hr-data-source">Set data source for all</span>
+      <select ng-model="vm.dataSourceForAll" ng-change="vm.setAllDataSources()"
+              ng-options="k as v for (k, v) in vm.dataSourceControl"
+              aria-describedby="all-data-source"></select>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <hr style="border-top:1px dashed #666">
+</div>
+
+
+<!--- Single selects -->
+<div class="row">
+
+  <!--- Heart rate select -->
+  <div class="col-sm-4">
+    <div class="styled-select colored-select light-grey-select input-group margin-bottom-20">
+      <span class="input-group-label light-grey-background grey-border-right" id="hr-data-source">HR</span>
+      <select ng-model="vm.activeDataSource[vm.defaultParameters.heartRate.code].source"
+              ng-options="k as v for (k, v) in vm.dataSource"
+              aria-describedby="hr-data-source"></select>
+    </div>
+  </div>
+
+  <!--- Saturation select -->
+  <div class="col-sm-4">
+    <div class="styled-select colored-select light-grey-select input-group margin-bottom-20">
+      <span class="input-group-label light-grey-background grey-border-right" id="hr-data-source">BP</span>
+      <select ng-model="vm.activeDataSource[vm.defaultParameters.bloodPressure.code].source"
+              ng-options="k as v for (k, v) in vm.dataSource"
+              aria-describedby="bp-data-source"></select>
+    </div>
+  </div>
+
+  <!--- Blood pressure select -->
+  <div class="col-sm-4">
+    <div class="styled-select colored-select light-grey-select input-group margin-bottom-20">
+      <span class="input-group-label light-grey-background grey-border-right" id="hr-data-source">Sat</span>
+      <select ng-model="vm.activeDataSource[vm.defaultParameters.saturation.code].source"
+              ng-options="k as v for (k, v) in vm.dataSource"
+              aria-describedby="sat-data-source"></select>
+    </div>
+  </div>
+
+  <!--- Other parameter selects -->
+  <div class="col-sm-4" ng-repeat="parameter in vm.dynamicParameters" ng-if="!vm.lightMode">
+    <div class="styled-select colored-select light-grey-select input-group margin-bottom-20">
+      <span class="input-group-label light-grey-background grey-border-right" id="hr-data-source">
+        {{ parameter.config.primaryConfig.includedObjects.parameter.type.coding[0].display }}
+      </span>
+      <select ng-options="k as v for (k, v) in vm.dataSource" aria-describedby="vent-data-source"
+            ng-model="vm.activeDataSource[parameter.config.primaryConfig.includedObjects.parameter.type.coding[0].code].source">
+      </select>
+    </div>
+  </div>
+</div>

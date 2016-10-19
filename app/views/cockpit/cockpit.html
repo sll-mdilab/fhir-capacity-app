@@ -1,0 +1,31 @@
+<div ui-view="header"></div>
+
+<!--- Cockpit version depending on screen size -->
+<div ui-view="cockpit-full" ng-if="!vm.lightMode"></div>
+<div ui-view="cockpit-light" ng-if="vm.lightMode"></div>
+
+<!--- Button row -->
+<div class="container narrow-main-content">
+  <div class="light-button-box margin-top-20">
+
+    <button type="button" ng-click="vm.startContinuousUpdate()" class="light-button light-button-first button green-button">
+      <span class="glyphicon glyphicon-repeat" ng-class="{spinning: vm.isUpdating}" aria-hidden="true"></span>
+      Start Update
+    </button>
+    <button type="button" ng-click="vm.stopContinuousUpdate()" class="light-button button red-button">
+      <span class="glyphicon glyphicon-pause" aria-hidden="true"></span> 
+      Stop Update
+    </button>
+    <button type="button" class="light-button button light-blue-button" ng-click="vm.toggleConfigEdit()">
+      <span ng-show="vm.hideConfigEdit"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Edit Source</span>
+      <span ng-hide="vm.hideConfigEdit"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Hide Source</span>
+    </button>
+  </div>
+
+  <!--- Config -->
+  <div ng-hide="vm.hideConfigEdit" class="margin-top-10">
+    <div ui-view="light-config">
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,85 @@
+<div ui-view="header"></div>
+
+<div class="container">
+
+  <!--- Patient details -->
+  <div class="row patient-details">
+    <div class="col-xs-6 patient-details-left no-padding">
+      <h2>Tian Tiansson</h2>
+    </div>
+    <div class="col-xs-6 patient-details-right no-padding">
+      <h2>7010101010</h2>
+    </div>
+  </div>
+
+
+  <!--- Content -->
+  <div class="row margin-top-20">
+
+    <!--- Left section -->
+    <div class="human-menu col col-sm-4 margin-bottom-20">
+      <h2 class="human-menu-title white-border-bottom">Add clinical impressions</h2>
+      <div class="grey-background">
+
+        <!--- List elements -->
+        <p class="human-menu-item no-margin padding-10 light-grey-border-top" ng-repeat="item in vm.clinicalImpressionItems">
+          {{ item.name }}
+          <span class="glyphicon glyphicon-plus human-menu-add light-grey-background" ng-show="vm.showAddButtons"
+                    ng-click="vm.addActiveItem(item)"></span>
+
+          <!--- Draggable icons -->
+          <span class="glyphicon glyphicon-pushpin human-model-attribute light-grey-background"
+                  ng-repeat="activeItem in item.activeList" 
+                  ng-click="vm.setActiveItemHighlight(activeItem, !activeItem.isHighlight)" 
+                  ng-class="{'blue-background': activeItem.isHighlight}"
+                  jqyoui-draggable="{onStart: 'vm.onStart(activeItem)', onDrag: 'vm.onDrag(activeItem)', onStop: 'vm.onStop(activeItem)'}" 
+                  data-drag="true">
+          </span>    
+        </p>
+      </div>
+    </div>
+
+
+    <!--- Middle section -->
+    <div id="human-model-container" class="human-model-container col col-sm-4 margin-bottom-20">
+      
+      <!--- Human body model -->
+      <human-body id="human-body" active-object="vm.activeObject">
+      </human-body> 
+
+      <!--- Checkboxes -->
+      <div class="clinical-model margin-top-40">
+        <div class="clinical-model-option radio">
+          <label><input type="radio" name="codeSystem" ng-model="vm.showIEEE" ng-value="true">IEEE</label>
+        </div>
+        <div class="clinical-model-option radio margin-bottom-20">
+          <label><input type="radio" name="codeSystem" ng-model="vm.showIEEE" ng-value="false">SNOMED</label>
+        </div>
+      </div>
+    </div>
+  
+
+    <!--- Right section -->
+    <div class="human-menu col col-sm-4 margin-bottom-20">
+      <h2 class="human-menu-title white-border-bottom">Active clinical impressions</h2>
+      
+      <!--- List elements -->
+      <div class="grey-background" ng-repeat="allActiveItem in vm.allActiveList">
+        <div class="no-padding no-marging">
+          <p class="human-menu-item no-margin padding-10 light-grey-border-top cursor-pointer" 
+                    ng-class="{'blue-background': allActiveItem.isHighlight}"
+                    ng-click="vm.setActiveItemHighlight(allActiveItem, !allActiveItem.isHighlight)">
+            <span ng-bind="allActiveItem.name"></span>
+          </p>
+
+          <!--- Expandable information -->
+          <div ng-show="allActiveItem.isHighlight" class="human-menu-information grey-background padding-10">
+            <p class="no-margin" ng-hide="vm.showIEEE">- Body part: {{allActiveItem.bodyPart.SNOMED}}</p>
+            <p class="no-margin" ng-show="vm.showIEEE">- Body part: {{allActiveItem.bodyPart.IEEE}}</p>
+          </div>
+        </div>
+      </div> 
+    </div>
+
+  </div>
+</div>

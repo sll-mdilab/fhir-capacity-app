@@ -1,0 +1,64 @@
+<modal-dialog show="vm.showAppointmentModal" complete-button-label="'Create'" complete-function="vm.createAppointment">
+  <h1 class="margin-bottom-20">Book appointment</h1>
+
+  <!--- Activity -->
+  <div class="input-group margin-bottom-20">
+    <span class="input-group-label light-grey-background grey-border-right">Activity</span>
+    <input type="text" class="light-grey-background" 
+            ng-model="vm.appointmentFormData.description" placeholder="Description.."/>
+  </div>
+  
+  <!--- Patient -->
+  <div class="input-group margin-bottom-20">
+    <span class="input-group-label light-grey-background grey-border-right">Patient</span>
+    <input type="text" class="light-grey-background" 
+          ng-model="vm.appointmentFormData.patient"
+          typeahead="option.name[0].text + ' (' + option.id + ')' for option in vm.searchPatient($viewValue)">
+    </input>
+  </div>
+
+  <!--- Practitioner -->
+  <div class="styled-select colored-select light-grey-select input-group margin-bottom-20">
+    <span class="input-group-label light-grey-background grey-border-right">Practitioner</span>
+    <select ng-model="vm.appointmentFormData.practitioner"
+            ng-options="option.name.text for option in vm.fullPractitionerList track by option.id"
+            class="form-control left-minus-5 title-case rounded-borders-right"></select>
+  </div>
+
+  <!--- Dates -->
+  <div class="row">
+    <div class="col col-xs-6">
+      <div class="input-group margin-bottom-10">
+        <span class="input-group-label light-grey-background grey-border-right">Start</span>
+        <input date-input type="text" class="light-grey-background" date-variable="vm.appointmentFormData.startDate">
+      </div>
+    </div>
+    <div class="col col-xs-6">
+      <div class="input-group margin-bottom-10">
+        <span class="input-group-label light-grey-background grey-border-right">End</span>
+        <input date-input type="text" class="light-grey-background" date-variable="vm.appointmentFormData.endDate">
+      </div>
+    </div>
+  </div>
+
+  <!--- Times -->
+  <div class="row">
+    <div class="col col-xs-6">
+      <div class="input-group margin-bottom-10">
+        <span class="input-group-label light-grey-background grey-border-right">Time</span>
+        <input time-input type="text" class="light-grey-background" time-variable="vm.appointmentFormData.startTime">
+      </div>
+    </div>
+    <div class="col col-xs-6">
+      <div class="input-group margin-bottom-10">
+        <span class="input-group-label light-grey-background grey-border-right">Time</span>
+        <input time-input type="text" class="light-grey-background" time-variable="vm.appointmentFormData.endTime">
+      </div>
+    </div>
+  </div>
+
+  <p class="red-font margin-top-10" ng-show="vm.invalidPatient">Patient field is invalid</p>
+  <p class="red-font margin-top-10" ng-show="vm.formDataIsMissing">All fields are required</p>
+
+</modal-dialog>
+

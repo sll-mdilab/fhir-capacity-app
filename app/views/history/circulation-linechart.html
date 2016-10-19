@@ -1,0 +1,21 @@
+<div> 
+  <div class="circulation-line-chart-ordination" ng-show="hasOrdinationTarget"> 
+    
+    <!--- Target lines -->
+    <div class="circulation-line-chart-ordination-line light-blue-dashed-border-top" ng-style="ordinationMaxTargetStyle"></div> 
+    <div class="circulation-line-chart-ordination-line light-blue-dashed-border-top" ng-style="ordinationMinTargetStyle"></div> 
+    
+    <!--- Target icon -->
+    <span class="glyphicon glyphicon-info-sign circulation-line-chart-ordination-info light-blue-font"  
+          ng-mouseenter="showOrdinationInfoFocusBox()"  
+          ng-mouseleave="hideOrdinationInfoFocusBox()"
+          ng-style="ordinationIconTargetStyle">
+    </span> 
+  </div> 
+
+  <!--- Focus box -->
+  <div class="focus-box black-background white-border" ng-style="focusBoxStyle"> 
+    <label ng-bind="focusUpperlabel"></label> 
+    <label ng-bind="focusBottomlabel" class="no-margin"></label> 
+  </div> 
+</div>

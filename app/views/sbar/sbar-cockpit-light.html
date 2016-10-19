@@ -1,0 +1,63 @@
+<div class="cursor-pointer" ng-click="showUpdateOptions = !showUpdateOptions" ng-init="showUpdateOptions = false">
+  <div class="row">
+    <div class="col-sm-4 light-observation-box-container light-grey-border"> 
+      
+      <!--- Heart rate -->
+      <fhir-light-observation-box id="light-heart-rate-box" id="light-observation-box" 
+              class="{{vm.circulationParameters[vm.defaultParameters.heartRate.code].config.primaryConfig.styleObjects.fontClass}}"
+        is-updating="vm.isUpdating"
+        update-delay="vm.updateDelay"
+        parameter-data="vm.circulationParameters[vm.defaultParameters.heartRate.code].data"
+        parameter-config="vm.circulationParameters[vm.defaultParameters.heartRate.code].config"
+        no-signal="vm.noSignal[vm.defaultParameters.heartRate.code]"
+        gauge-width="12"
+        gauge-height="70"
+        alarm-width="12">
+      </fhir-light-observation-box>
+    </div>
+    
+    <!--- Saturation -->
+    <div class="col-sm-4 light-observation-box-container light-grey-border">
+      <fhir-light-observation-box id="light-observation-box" 
+              class="{{vm.circulationParameters[vm.defaultParameters.saturation.code].config.primaryConfig.styleObjects.fontClass}}"
+        is-updating="vm.isUpdating"
+        update-delay="vm.updateDelay"
+        parameter-data="vm.circulationParameters[vm.defaultParameters.saturation.code].data"
+        parameter-config="vm.circulationParameters[vm.defaultParameters.saturation.code].config"
+        no-signal="vm.noSignal[vm.defaultParameters.saturation.code]"
+        gauge-width="12"
+        gauge-height="70"
+        alarm-width="12">
+      </fhir-light-observation-box>
+    </div>
+    
+    <!--- Blood pressure -->
+    <div class="col-sm-4 light-observation-box-container light-grey-border">
+      <fhir-light-observation-box id="light-blood-pressure-box" id="light-observation-box" 
+              class="{{vm.circulationParameters[vm.defaultParameters.bloodPressure.code].config.primaryConfig.styleObjects.fontClass}}"
+        is-updating="vm.isUpdating"
+        update-delay="vm.updateDelay"
+        parameter-data="vm.circulationParameters[vm.defaultParameters.bloodPressure.code].data"
+        parameter-config="vm.circulationParameters[vm.defaultParameters.bloodPressure.code].config"
+        no-signal="vm.noSignal[vm.defaultParameters.bloodPressure.code]"
+        gauge-width="12"
+        gauge-height="70"
+        alarm-width="12">
+      </fhir-light-observation-box>
+    </div>
+  </div>
+
+  <!--- Button box -->
+  <div class="sbar-light-button-box-container" ng-show="showUpdateOptions">
+    <div class="light-button-box padding-vertical-10">
+      <button type="button" ng-click="vm.startContinuousUpdate()" class="light-button button green-button">
+        <span class="glyphicon glyphicon-repeat" ng-class="{spinning: vm.isUpdating}" aria-hidden="true"></span>
+        Start Update
+      </button>
+      <button type="button" ng-click="vm.stopContinuousUpdate()" class="button red-button">
+        <span class="glyphicon glyphicon-pause" aria-hidden="true" class="light-button"></span> 
+        Stop Update
+      </button>    
+    </div>
+  </div>
+</div>

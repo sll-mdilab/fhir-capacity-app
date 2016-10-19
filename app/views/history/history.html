@@ -1,0 +1,186 @@
+<div ui-view="header"></div>
+
+<div class="container">
+
+  <!--- Patient details -->
+  <div class="row patient-details">
+    <div class="col-xs-6 patient-details-left no-padding">
+      <h2 ng-bind="vm.config.patient.name[0].text"></h2>
+    </div>
+    <div class="col-xs-6 patient-details-right no-padding">
+      <h2 ng-bind="vm.config.patient.id"></h2>
+    </div>
+  </div>
+
+
+  <!--- History container -->
+  <div class="history-container framed">
+    <div ui-view="history-cockpitlight"></div>
+
+    <!--- Timeline row -->
+    <div class="row history-box white-border-bottom">
+
+      <!--- Timescope dropdown -->
+      <div class="col-xs-2 history-timeline-box styled-select transparent-select no-padding">
+        <select name="timeScopeSelect" id="time-scope-select"
+          ng-change="vm.changeTimeScope()"
+          ng-options="option.name for option in vm.timeScopeSource track by option.name"
+          ng-model="vm.timeScope"></select>
+      </div>
+      <div class="col-xs-10 col-sm-10 col-md-8 history-timeline-box no-padding white-border-left" 
+                ng-class="{'no-pointer-events' : !vm.timeScope.editMode }">
+        
+        <!--- Manual interval select button -->
+        <button class="history-interval-select-toggle button blue-button" ng-if="vm.showManualTimeIntervalButton"
+                  ng-click="vm.updateActiveIntervalSelectToolbox(vm.timelineIntervalSelectIdentifier)">
+          <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span>
+        </button>
+
+        <!--- Manual interval select   -->
+        <history-interval-select class="history-timeline-interval-select"
+          ng-if="vm.intervalSelectVariables[vm.timelineIntervalSelectIdentifier].showIntervalSelect"
+          identifier="vm.timelineIntervalSelectIdentifier"
+          time-scope="vm.timeScope"
+          current-time="vm.currentTime"
+          box-height="vm.boxHeight"
+          interval-select-min-time="vm.intervalSelectVariables[vm.timelineIntervalSelectIdentifier].minTime"
+          interval-select-max-time="vm.intervalSelectVariables[vm.timelineIntervalSelectIdentifier].maxTime"
+          manual-timescope-function="vm.setManualTimeScope">
+        </history-interval-select>
+
+        <!--- Timeline -->
+        <history-timeline
+          time-scope="vm.timeScope"
+          current-time="vm.currentTime"
+          n-intervals="vm.nIntervals"
+          n-line-charts="vm.noCirculationParameters"
+          line-chart-box-height="vm.circulationLineChartBoxHeight"
+          timeline-box-height="vm.timelineBoxHeight"
+          box-height="vm.boxHeight"
+          manual-timescope-function="vm.setManualTimeScope">
+        </history-timeline>
+      </div>  
+
+      <div class="col-xs-2 timeline-toolbox no-padding hide-for-medium-screen white-border-left">
+      </div>   
+    </div>
+
+
+    <!--- Circulation parameter box -->
+    <div class="row history-box white-border-bottom">
+      <div ng-repeat="circulationParameter in vm.sampledCirculationParameters" 
+            ng-init="parameterCode = circulationParameter.config.primaryConfig.includedObjects.parameter.type.coding[0].code"
+            class="row circulation-parameter-history-box white-border-bottom 
+                  {{circulationParameter.config.primaryConfig.includedObjects.parameter.color}}-fill 
+                  {{circulationParameter.config.primaryConfig.includedObjects.parameter.color}}-font 
+                  {{circulationParameter.config.primaryConfig.includedObjects.parameter.color}}-stroke">
+        
+        <!--- Label box -->
+        <div class="col-xs-2 history-box-label">
+          <p class="circulation-parameter-history-box-container">
+            {{circulationParameter.config.primaryConfig.includedObjects.parameter.type.coding[0].display}}
+          </p>
+          <p class="circulation-parameter-history-box-min-max-container" ng-if="!circulationParameter.config.secondaryConfig">
+            <span class="circulation-parameter-history-box-max"
+              ng-bind="circulationParameter.config.primaryConfig.styleObjects.alarmLimits.upperAlarm"></span>
+            <span class="circulation-parameter-history-box-min"
+              ng-bind="circulationParameter.config.primaryConfig.styleObjects.alarmLimits.lowerAlarm"></span>
+          </p>
+          <p class="circulation-parameter-history-box-min-max-container" ng-if="circulationParameter.config.secondaryConfig">
+            <span class="circulation-parameter-history-box-max"
+              ng-bind="circulationParameter.config.secondaryConfig.styleObjects.alarmLimits.upperAlarm"></span>
+            <span class="circulation-parameter-history-box-min"
+              ng-bind="circulationParameter.config.tertiaryConfig.styleObjects.alarmLimits.lowerAlarm"></span>
+          </p>
+        </div>
+
+        <!--- Line chart box -->
+        <div class="col-xs-10 col-sm-10 col-md-8 svg-container no-padding white-border-left">  
+          
+          <!--- Annotation interval -->
+          <history-interval-select class="history-circulation-interval-select"
+            ng-if="vm.intervalSelectVariables[parameterCode].showIntervalSelect"
+            identifier="parameterCode"
+            time-scope="vm.timeScope"
+            current-time="vm.currentTime"
+            box-height="vm.circulationLineChartHeight"
+            interval-select-min-time="vm.intervalSelectVariables[parameterCode].minTime"
+            interval-select-max-time="vm.intervalSelectVariables[parameterCode].maxTime">
+          </history-interval-select>
+
+          <!--- Line chart -->
+          <fhir-circulation-parameter-line-chart id="history-heart-rate-box"
+            current-time="vm.currentTime"
+            time-scope="vm.timeScope"
+            parameter-data="circulationParameter.data"
+            parameter-config="circulationParameter.config"
+            parameter-annotations="circulationParameter.annotations"
+            parameter-manual-observations="circulationParameter.manualObservations"
+            no-signal="vm.noSignal[parameterCode]"
+            line-chart-height="vm.circulationLineChartHeight"
+            n-intervals="vm.nIntervals">
+          </fhir-circulation-parameter-line-chart>
+        </div>
+
+        <!--- Toolbox -->
+        <div class="col-xs-2 circulation-parameter-toolbox hide-for-medium-screen  white-border-left">
+          <div ui-view="circulation-toolbox"></div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--- Other parameter box -->
+    <div class="row history-box">
+
+      <!--- Label box -->
+      <div class="row other-parameter-history-box" ng-repeat="parameter in vm.sampledOtherParameters">
+        <div class="col-xs-2 history-box-label grey-border-bottom">
+          {{parameter.config.primaryConfig.includedObjects.parameter.type.coding[0].display}} 
+        </div>
+
+        <!--- Table box -->
+        <div class="col-xs-10 col-sm-10 col-md-8 no-padding svg-container white-border-left grey-border-bottom">
+          <fhir-other-parameter-table id="history-mv-box"
+            current-time="vm.currentTime"
+            time-scope="vm.timeScope"
+            n-intervals="vm.nIntervals"
+            n-intervals-after-current-time="vm.nIntervalsAfterCurrentTime"
+            parameter-data="parameter.data"
+            parameter-config="parameter.config"
+            table-height="vm.tableHeight">
+          </fhir-other-parameter-table>
+        </div>
+
+        <div class="col-xs-2 other-parameter-toolbox no-padding hide-for-medium-screen white-border-left">
+        </div>
+      </div>   
+    </div>
+  </div>
+</div>
+
+
+<!--- Button row -->
+<div class="container margin-top-20 margin-bottom-20">
+  <div class="light-button-box padding-vertical-10">
+    <button type="button" ng-click="vm.startContinuousUpdate()" class="button green-button light-button">
+      <span class="glyphicon glyphicon-repeat" ng-class="{spinning: vm.isUpdating}" aria-hidden="true"></span>
+      Start Update
+    </button>
+    <button type="button" ng-click="vm.stopContinuousUpdate()" class="button red-button light-button">
+      <span class="glyphicon glyphicon-pause" aria-hidden="true" class="light-button"></span> 
+      Stop Update
+    </button>
+    <button type="button" class="button light-blue-button light-button" ng-click="vm.toggleConfigEdit()">
+      <span ng-show="vm.hideConfigEdit"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Edit Configurations</span>
+      <span ng-hide="vm.hideConfigEdit"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Hide Configurations</span>
+    </button>
+  </div>
+  
+  <!--- Config -->
+  <div ng-hide="vm.hideConfigEdit">
+    <div ui-view="light-config">
+    </div>
+  </div>
+
+</div>

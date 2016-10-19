@@ -1,0 +1,247 @@
+<div ui-view="header"></div>
+
+<div class="container overview-container">
+
+  <!--- Active patient header -->
+  <div class="row margin-top-20">
+    <div class="col col-sm-6 col-xs-7">
+      <h1>Active Patients</h1>
+    </div>
+
+    <!--- Right side button -->
+    <div class="col col-sm-6 col-xs-5 text-align-right">  
+      <button class="button blue-button overview-header-button" ng-show="vm.shownEpisodeList.length > 0" 
+                ng-click="vm.editActivePatients = !vm.editActivePatients">
+        <span class="glyphicon glyphicon-edit" ng-hide="vm.editActivePatients"></span>
+        <span class="hide-for-small-screen" ng-hide="vm.editActivePatients">Edit</span>
+        <span class="glyphicon glyphicon-ok" ng-show="vm.editActivePatients"></span>
+        <span class="hide-for-small-screen" ng-show="vm.editActivePatients">Done</span>
+      </button>
+    </div>
+  </div>
+
+  <!--- Active patient filters -->
+  <div class="row no-margin margin-top-20 margin-bottom-10" ng-if="vm.shownEpisodeList.length > 0">
+    <div class="col-sm-4 styled-select colored-select colored-select-left light-grey-select">
+      <select ng-model="vm.careTeamFilter"
+              ng-change="vm.updateShownEpisodes()"
+              ng-options="option.name for option in vm.careTeamList track by option.id"></select>
+    </div>
+    <div class="col-sm-4 styled-select colored-select colored-select-middle light-grey-select">
+      <select ng-model="vm.careManagerFilter"
+              ng-change="vm.updateShownEpisodes()"
+              ng-options="option.name.text for option in vm.careManagerList track by option.id"></select>
+    </div>
+    <div class="col-sm-4 styled-select colored-select colored-select-right light-grey-select">
+      <select ng-model="vm.managingOrganizationFilter"
+              ng-change="vm.updateShownEpisodes()"
+              ng-options="option.name for option in vm.managingOrganizationList track by option.id"></select>
+    </div>
+  </div>
+
+
+  <!--- Active patient rows -->
+  <div class="grid-row overview-patient overview-active-patient grey-background" ng-repeat="episode in vm.shownEpisodeList">
+    
+    <!--- Patient image -->
+    <div class="overview-image-cell grid-cell light-grey-background no-padding">
+      <span class="glyphicon glyphicon-user"></span> 
+      
+      <!--- Discharge field for large screens -->
+      <p class="overview-remove-active-patient red-button cursor-pointer" 
+              ng-show="vm.editActivePatients" ng-click="vm.dischargePatient(episode)">
+        <span class="glyphicon glyphicon-log-out hide-for-small-screen" aria-hidden="true"></span> 
+        <span>Discharge</span>
+      </p>
+    </div>    
+
+    <!--- Patient data -->
+    <div class="overview-active-patient-data grid-cell">      
+            <div class="overview-text-group">
+        <p class="overview-text-header">
+          <span class="hide-for-small-screen">{{episode.includedObjects.patient.name[0].text}}</span>
+          <span class="show-for-small-screen">{{episode.styleObjects.shortPatientName}}</span>
+        </p>
+        <p ng-bind="episode.includedObjects.patient.id"></p>
+      </div>
+      <div class="overview-text-group margin-top-10">
+        <p class="overview-text-header">
+          <span class="hide-for-small-screen">Current: </span>
+          {{episode.includedObjects.managingOrganization.name}}
+        </p>
+        <p class="hide-for-small-screen">{{episode.includedObjects.careManager.name.text}}</p>
+        <p class="show-for-small-screen">{{episode.styleObjects.shortCareManagerName}}</p>  
+      </div>
+
+      <!--- Discharge field for small screens -->
+      <p class="overview-remove-active-patient-small red-button cursor-pointer" 
+              ng-show="vm.editActivePatients" ng-click="vm.dischargePatient(episode)">
+        <span>Discharge</span>
+      </p>
+    </div>
+
+    <!--- Applications -->
+    <div class="grid-fixed-cell grid-cell">
+      <div class="overview-application-container" >
+        <div class="overview-mews-box"
+         ng-class="episode.includedObjects.info == 'WARNING' ? 'red-mews-background' : (episode.includedObjects.info == 'INFO' ? 'green-mews-background' : 'light-grey-background' )">
+          <div class="mews-header" ng-click="vm.goToCDS(episode)">
+            <p>MEWS</p>
+            <p class="mewscore">{{episode.includedObjects.mewScore || '-'}}</p>
+          </div>
+          <button type="button" class="update-mews-button" ng-click="vm.fetchMEWS(episode)">
+            <span class="glyphicon glyphicon glyphicon-refresh" 
+                ng-class="episode.includedObjects.iconSpin ? 'fa-spin' : ''"></span>
+          </button>
+        </div>
+
+        <div class="mews-tooltip" ng-click="vm.goToCDS(episode)" 
+        ng-class="episode.includedObjects.info == 'WARNING' ? 'red-mews-background' : (episode.includedObjects.info == 'INFO' ? 'green-mews-background' : 'light-grey-background' )">
+            <p ng-bind-html="(episode.includedObjects.details) || 'No MEW Score calculated'"></p>
+        </div>
+        <div class="overview-application-box light-grey-background" ng-click="vm.goToApp('pre-anestesia', episode)" 
+                  ng-show="episode.styleObjects.hasQuestionnaireResponseData">
+          <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 
+          <p>Pre anestesia</p>
+        </div>
+
+        <div class="overview-application-box overview-application-box-top light-grey-background" 
+                  ng-click="vm.goToApp('cockpit', episode)">
+          <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> 
+          <p>Current status</p>
+        </div>
+
+        <div class="overview-application-box overview-application-box-top light-grey-background" 
+                  ng-click="vm.goToApp('history', episode)">
+          <span class="glyphicon glyphicon-stats glyphicon-with-vertical-space" aria-hidden="true"></span> 
+          <p>History charts</p>
+          <p class="notification overview-notification red-background" 
+                  ng-show="episode.styleObjects.noCirculationAnnotations > 0"> 
+            {{ episode.styleObjects.noCirculationAnnotations }}
+          </p>
+        </div>
+
+        <div class="overview-application-box light-grey-background" ng-click="vm.goToApp('ordination', episode)">
+          <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> 
+          <p>Medical orders</p>
+        </div> 
+
+        <div class="overview-application-box overview-application-box-top light-grey-background" 
+                  ng-click="vm.checkSBAR(episode)">
+          <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> 
+          <p>SBAR transfer</p>
+        </div>  
+     
+        <div class="overview-application-box light-grey-background" 
+                  ng-click="vm.goToApp('human', episode)">
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 
+          <p>Body marker</p>
+        </div>
+		
+		    <div class="overview-application-box light-grey-background" 
+                  ng-click="vm.goToApp('body-mapper', episode)">
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 
+          <p>Body mapper</p>
+        </div>
+
+        
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row no-margin" ng-if="vm.shownEpisodeList.length > 0">
+    <hr class="margin-top-40" style="border-top:1px dashed #666">
+  </div>
+
+
+  <!--- Scheduled patients -->
+  <div class="row margin-top-20">
+    <div class="col col-sm-6 col-xs-7">
+      <h1>Scheduled patients</h1>
+    </div>
+
+    <!--- Right side buttons -->
+    <div class="col col-sm-6 col-xs-5 text-align-right">
+      <button class="button blue-button overview-header-button" ng-show="vm.appointmentList.length > 0" 
+              ng-click="vm.editScheduledPatients = !vm.editScheduledPatients">
+        <span class="glyphicon glyphicon-edit" ng-hide="vm.editScheduledPatients"></span>
+        <span class="hide-for-small-screen" ng-hide="vm.editScheduledPatients">Edit</span>
+        <span class="glyphicon glyphicon-ok" ng-show="vm.editScheduledPatients"></span>
+        <span class="hide-for-small-screen" ng-show="vm.editScheduledPatients">Done</span>
+      </button>  
+      <button class="button blue-button  overview-header-button" ng-click="vm.setupAppointmentModal()">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        <span class="hide-for-small-screen">Add</span>
+        <span class="hide-for-medium-screen"> meeting</span>
+      </button>   
+    </div>
+  </div>
+  
+  <!--- Scheduled patient rows -->
+  <div class="row overview-patient overview-scheduled-patient grey-background" ng-repeat="appointment in vm.appointmentList">
+    <div class="col col-sm-2 col-xs-3 no-padding">
+      
+      <!--- Date and time box -->
+      <div class="overview-scheduled-patient-datetime light-grey-background">
+
+        <!--- Cancel button -->
+        <div class="overview-remove-scheduled-patient red-button cursor-pointer" 
+                ng-show="vm.editScheduledPatients" ng-click="vm.cancelAppointment(appointment)">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
+          <span>Cancel</span>
+        </div>
+
+        <!--- Date and time -->
+        <div class="overview-scheduled-patient-datetime-content">
+          <p class="no-margin">
+            <span class="glyphicon glyphicon-calendar margin-right-5 hide-for-small-screen"></span>
+            <label class="no-margin" ng-bind="appointment.styleObjects.startDate"></label>
+          </p>
+          <p class="no-margin">
+            <span class="glyphicon glyphicon-time margin-right-5 hide-for-small-screen"></span>
+            <label class="no-margin" ng-bind="appointment.styleObjects.startTime"></label>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!--- Patient data -->
+    <div class="overview-scheduled-patient-data col-sm-8 col col-xs-7  no-padding">
+      <div class="overview-scheduled-patient-data-box overview-scheduled-patient-data-box-left">
+        <p class="overview-scheduled-patient-data-title no-margin"><span>{{ appointment.description }}</span></p>
+        <p class="no-margin hide-for-small-screen">
+          <span>{{ appointment.includedObjects.primaryPerformer.name.text }}</span>
+        </p>
+        <p class="no-margin show-for-small-screen">
+          <span>{{ appointment.styleObjects.shortPrimaryPerformerName}}</span>
+        </p>
+      </div>
+      <div class="overview-scheduled-patient-data-box overview-scheduled-patient-data-box-right">
+        <p class="no-margin hide-for-small-screen">
+          <span>{{ appointment.includedObjects.patient.name[0].text }}</span>
+        </p>
+        <p class="no-margin show-for-small-screen">
+          <span>{{ appointment.styleObjects.shortPatientName }}</span>
+        </p>
+        <p class="no-margin">
+          <span>{{ appointment.includedObjects.patient.id }}</span>
+        </p>
+      </div>
+    </div>
+
+    <!--- Admit button -->
+    <div class="col col-sm-2 col-xs-2 no-padding text-align-right">
+      <button class="button overview-scheduled-patient-button grey-button" ng-click="vm.admitPatient(appointment)">
+        <span class="glyphicon glyphicon-log-in margin-right-5" aria-hidden="true"></span> 
+        <span class="hide-for-small-screen">Admit</span>
+      </button>
+    </div>
+  </div>
+
+  <!--- Modals -->
+  <div ui-view="sbar-modal"></div>
+  <div ui-view="appointment-modal"></div>
+
+</div>

@@ -1,0 +1,142 @@
+<div ui-view="header"></div>
+
+<div class="container ordination-container">
+
+  <!--- Patient details -->
+  <div class="row patient-details">
+    <div class="col-xs-6 patient-details-left no-padding">
+      <h2 ng-bind="vm.config.patient.name[0].text"></h2>
+    </div>
+    <div class="col-xs-6 patient-details-right no-padding">
+      <h2 ng-bind="vm.config.patient.id"></h2>
+    </div>
+  </div>
+  
+  <!--- Day selection -->
+  <div class="row margin-top-20 margin-bottom-20">
+    <div class="col col-sm-8 margin-top-10">
+      <div class="row todo-day-menu grey-background no-padding no-margin cursor-pointer">
+        <div class="col col-sm-1">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        </div>
+        <div class="col col-sm-2 light-grey-border-left">Mon 6/2</div>
+        <div class="col col-sm-2 light-grey-border-left">Tue 7/2</div>
+
+        <div class="col col-sm-2 light-grey-background">
+          <span>Today 8/2</span><span class="notification todo-notification red-background">4</span>
+        </div>
+        <div class="col col-sm-2 light-grey-border-left">Thi 9/2</div>
+        <div class="col col-sm-2 light-grey-border-left">Fri 10/2</div>
+        <div class="col col-sm-1 light-grey-border-left todo-day-menu-last">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+    <div class="col col-sm-1">
+    </div>
+    <div class="col col-sm-3 margin-top-10">
+        <button type="button" class="button blue-button full-width-button">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          Add new event
+        </button>
+    </div>
+  </div>
+
+  <!--- Todo group header -->
+  <div class="row white-border-bottom no-padding no-margin">
+    <div class="col col-xs-10 margin-top-10 no-padding">
+      <p class="todo-table-header no-margin">
+        <span class="todo-table-header-time">14.00</span>
+        <span class="notification todo-notification red-background">3</span>
+      </p>
+    </div>
+    <div class="col col-xs-2">
+    </div>
+  </div>
+
+  <!--- Todo rows -->
+  <div class="row todo-table-row no-padding no-margin grey-background light-grey-border-bottom">
+    <div class="col col-xs-8 no-margin padding-5">
+      <p class="todo-table-row-type green-background"></p>
+      <p class="todo-table-row-title no-margin"> Perform xxxxx</p>
+    </div>
+    <div class="col col-xs-4 todo-table-row-right no-margin padding-10">
+      <input type="checkbox"/>
+    </div>
+  </div>
+
+  <div class="row todo-table-row no-padding no-margin grey-background light-grey-border-bottom">
+    <div class="col col-xs-8 no-margin padding-5">
+      <p class="todo-table-row-type blue-background"></p>
+      <p class="todo-table-row-title no-margin"> Give xxxxx medication</p>
+    </div>
+    <div class="col col-xs-4 todo-table-row-right no-margin padding-10">
+      <input type="checkbox"/>
+    </div>
+  </div>
+
+  <div class="row todo-table-row no-padding no-margin grey-background">
+    <div class="col col-xs-8 no-margin padding-5">
+      <p class="todo-table-row-type red-background"></p>
+      <p class="todo-table-row-title no-margin"> Clean xxxxx</p>
+    </div>
+    <div class="col col-xs-4 todo-table-row-right no-margin padding-10">
+      <input type="checkbox"/>
+    </div>
+  </div>
+
+
+  <!-- Todo group header -->
+  <div class="row white-border-bottom no-padding no-margin margin-top-40">
+    <div class="col col-xs-10 margin-top-10 no-padding">
+      <p class="todo-table-header no-margin">
+        <span class="todo-table-header-time">16.00</span>
+        <span class="notification todo-notification light-grey-background">4</span>
+      </p>
+    </div>
+    <div class="col col-xs-2">
+    </div>
+  </div>
+
+  <!--- Todo rows -->
+  <div class="row todo-table-row no-padding no-margin grey-background light-grey-border-bottom">
+    <div class="col col-xs-8 no-margin padding-5">
+      <p class="todo-table-row-type green-background"></p>
+      <p class="todo-table-row-title no-margin"> Perform xxxxx</p>
+    </div>
+    <div class="col col-xs-4 todo-table-row-right no-margin padding-10">
+      <input type="checkbox"/>
+    </div>
+  </div>
+
+  <div class="row todo-table-row no-padding no-margin grey-background light-grey-border-bottom">
+    <div class="col col-xs-8 no-margin padding-5">
+      <p class="todo-table-row-type blue-background"></p>
+      <p class="todo-table-row-title no-margin"> Give xxxxx medication</p>
+    </div>
+    <div class="col col-xs-4 todo-table-row-right no-margin padding-10">
+      <input type="checkbox"/>
+    </div>
+  </div>
+
+  <div class="row todo-table-row no-padding no-margin grey-background light-grey-border-bottom">
+    <div class="col col-xs-8 no-margin padding-5">
+      <p class="todo-table-row-type red-background"></p>
+      <p class="todo-table-row-title no-margin"> Clean xxxxx</p>
+    </div>
+    <div class="col col-xs-4 todo-table-row-right no-margin padding-10">
+      <input type="checkbox"/>
+    </div>
+  </div>
+
+  <div class="row todo-table-row no-padding no-margin grey-background">
+    <div class="col col-xs-8 no-margin padding-5">
+      <p class="todo-table-row-type green-background"></p>
+      <p class="todo-table-row-title no-margin"> Perform xxxxx</p>
+    </div>
+    <div class="col col-xs-4 todo-table-row-right no-margin padding-10">
+      <input type="checkbox"/>
+    </div>
+  </div>
+
+</div>

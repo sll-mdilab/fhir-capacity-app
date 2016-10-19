@@ -1,0 +1,243 @@
+/* Cockpit version */
+
+.cockpit-light {
+  display: none;
+}
+
+
+/* Linear Gauge */
+
+.gauge-wrapper.saturation {
+  border-radius: 0 10px 0 10px;
+}
+
+.gauge-wrapper.heart-rate {
+  border-radius: 10px 0 10px 0;
+}
+
+.gauge-wrapper.pressure {
+  border-radius: 0 0 10px 10px;
+}
+
+
+/* Gauge Text and Line Colors */
+
+#heart-rate-gauge text,
+#heart-rate-gauge text.current-value {
+  fill: #68ff5a;
+}
+
+#heart-rate-gauge line {
+  stroke: #68ff5a;
+}
+
+#pressure-gauge text,
+#pressure-gauge text.current-value, #pressure-gauge text.current-value-secondary {
+  fill: #ff5456;
+}
+
+#pressure-gauge line {
+  stroke: #ff5456;
+}
+
+#saturation-gauge text,
+#saturation-gauge text.current-value {
+  fill: #fcf95c;
+}
+
+#saturation-gauge line {
+  stroke: #fcf95c;
+}
+
+
+/* Axis */
+
+.axis-minor path,
+.axis-minor line {
+  fill: none;
+  opacity: 0.6;
+  shape-rendering: crispEdges;
+  stroke-width: 1;
+}
+
+.axiz path,
+.axiz line,
+.axis path,
+.axis line {
+  fill: none;
+  opacity: 0.6;
+  shape-rendering: crispEdges;
+  stroke-width: 2;
+}
+
+.axis-minor path,
+.axis-minor text,
+.axis path,
+.axiz path {
+  display: none;
+}
+
+.axis text {
+  font-family: sans-serif;
+  font-size: 20px;
+  opacity: 0.6;
+}
+
+
+/* Pointer */
+
+.pointer {
+  fill: white;
+  opacity: 1.0;
+}
+
+.min-pointer, .max-pointer {
+  fill: steelblue;
+}
+
+
+/* No-signal indicator */
+
+.no-signal-indicator {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  border-radius: 5px;
+}
+
+.no-signal-indicator.heart-rate {
+  top: 10px;
+  left: 10px;
+}
+
+.no-signal-indicator.saturation {
+  top: 10px;
+  right: 10px;
+}
+
+.no-signal-indicator.pressure {
+  bottom: 10px;
+  left: 10px;
+}
+
+.blink {
+  -webkit-animation: blink 1.0s linear infinite;
+  -moz-animation: blink 1.0s linear infinite;
+  animation: blink 1.0s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: .1;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .1;
+  }
+}
+
+
+/* Indicator buttons */
+
+.indicator-button {
+  padding: 5px 15%;
+  display: block;
+  border-radius: 5px;
+}
+
+a.indicator-button {
+  text-decoration: none;
+}
+
+.indicator-button.warn {
+  background: #621a1e;
+}
+
+.indicator-button.warn:hover {
+  background: #ff454f;
+}
+
+.indicator-button.info {
+  background: #00023b;
+}
+
+.indicator-button.info:hover, .indicator-button.info.active {
+  background: #0007f2;
+}
+
+
+/* Wave form charts */
+
+.waveform-container {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.waveform-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  width: 435px;
+}
+
+.waveform-options-list-wrapper {
+  display: inline-block;
+  vertical-align: super;
+}
+
+ul.waveform-options-list {
+  display: table;
+  table-layout: fixed;
+  border-spacing: 3px;
+  border-collapse: separate;
+  padding-left:0;
+  margin-bottom:0;
+}
+
+ul.waveform-options-list > li {
+  text-align: center;
+  display: table-row;
+  border-radius: 4px;
+  margin: 2px 0;
+}
+
+ul.waveform-options-list > li.active {
+  background: steelblue;
+}
+
+ul.waveform-options-list > li > a {
+  display: table-cell;
+  vertical-align: middle;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+
+/* Responsive design */
+
+@media (max-width: 500px) {
+
+  /* Cockpit version */
+
+  .cockpit-full {
+    display: none;
+  }
+
+  .cockpit-light {
+    display: block;
+  }
+}
+
+
+@media (max-width: 590px) {
+
+  /* Waveform */
+
+  .waveform-container { 
+    display: none;
+  }
+}
+

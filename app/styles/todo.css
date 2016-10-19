@@ -1,0 +1,93 @@
+.todo-day-menu {
+  width: 100%; 
+  height: 32px; 
+  border-radius: 4px;
+}
+
+.todo-day-menu div {
+  text-align: center;
+  padding: 5px 0;
+  height: 32px;
+  line-height: 22px;
+  vertical-align: top;
+}
+
+.todo-day-menu-first {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;  
+}
+
+.todo-day-menu-last {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.todo-table-header {
+  padding: 5px 0;
+} 
+
+.todo-table-header-time {
+  font-size: 18px;
+}
+
+.todo-notification {
+  margin: 2px;
+}
+
+.todo-table-header .todo-notification {
+  vertical-align: text-bottom;
+}
+
+.todo-day-menu .todo-notification {
+  vertical-align: top;
+  margin-left: 5px;
+}
+
+
+/* Table row */
+
+.todo-table-row {
+  width: 100%;
+}
+
+.todo-table-row,
+.todo-table-row div {
+  height: 45px;
+}
+
+.todo-table-row-type,
+.todo-table-row-title {
+  display: inline-block;
+}
+
+.todo-table-row-type {
+  height: 35px;
+  width: 7px;
+  margin: 0 5px 0 0;
+}
+
+.todo-table-row-title {
+  vertical-align: top;
+  line-height: 35px;
+}
+
+.todo-table-row-right {
+  text-align: right;
+}
+
+.todo-table-row-time-input {
+  vertical-align: top;
+  border-radius: 4px; 
+  width: 100px; 
+  height: 25px; 
+  border: none;
+  margin-right: 5px;
+}
+
+.todo-table-row-time-input:focus {
+  outline: none;
+}
+
+.todo-table-row-check {
+  margin: 6px 0 6px 10px;
+}

@@ -1,0 +1,54 @@
+<modal-dialog show='vm.showSbarModal' complete-button-label="'Complete'" complete-function="vm.createSBAR">
+  <h1 class="margin-bottom-20">Transfer patient</h1>
+
+  <!--- New activity options -->
+  <label class="patient-transfer-type cursor-pointer" ng-class="{ 'text-decoration-underline': vm.showPlannedActivities }" 
+            ng-click="vm.showNewActivities = false; vm.showPlannedActivities = true">To planned activity</label>
+
+  <label class="patient-transfer-type cursor-pointer" ng-class="{ 'text-decoration-underline': vm.showNewActivities }" 
+            ng-click="vm.showNewActivities = true; vm.showPlannedActivities = false">To new activity</label>
+
+  <!--- Planned activity inputs -->
+  <div ng-show="vm.showPlannedActivities">
+    <div class="styled-select colored-select light-grey-select input-group margin-bottom-20">
+      <span class="input-group-label light-grey-background grey-border-right">Planned activities</span>
+      <select ng-model="vm.sbarFormData.planned.encounter"
+              ng-options="option.type[0].text + ', ' + option.includedObjects.primaryPerformer.name.text 
+                + ' (' + option.includedObjects.serviceProvider.name + ')'
+                for option in vm.plannedEpisodeEncounterList track by option.id"
+              class="form-control left-minus-5 title-case rounded-borders-right"></select>
+    </div>
+  </div>
+
+  <!--- New activity inputs  -->
+  <div ng-show="vm.showNewActivities">
+
+    <!--- Department -->
+    <div class="styled-select colored-select light-grey-select input-group margin-bottom-20">
+      <span class="input-group-label light-grey-background grey-border-right">Organization</span>
+      <select ng-model="vm.sbarFormData.new.organization"
+              ng-change="vm.updateAvailablePractitionerList()"
+              ng-options="option.name for option in vm.fullOrganizationList track by option.id"
+              class="form-control left-minus-5 title-case rounded-borders-right"></select>
+    </div>
+
+    <!--- Practitioenr -->
+    <div class="styled-select colored-select light-grey-select input-group margin-bottom-20">
+      <span class="input-group-label light-grey-background grey-border-right">Practitioner</span>
+      <select ng-model="vm.sbarFormData.new.recipient"
+              ng-options="option.name.text for option in vm.organizationPractitionerList track by option.id"
+              class="form-control left-minus-5 title-case rounded-borders-right"></select>
+    </div>
+
+    <!--- Activity -->
+    <div class="input-group margin-bottom-10">
+      <span class="input-group-label light-grey-background grey-border-right" id="patient-id">Activity</span>
+      <input id="select-practitioner-input" type="text" class="light-grey-background" 
+              ng-model="vm.sbarFormData.new.activity" placeholder="New activity.."/>
+    </div>
+  </div>
+  
+  <!--- Warning -->
+  <p class="red-font margin-top-10" ng-show="vm.formDataIsMissing">All fields are required</p>
+
+</modal-dialog>

@@ -1,0 +1,46 @@
+
+<!--- Header -->
+<p class="light-observation-header">{{config.primaryConfig.includedObjects.parameter.type.coding[0].display}}</p>
+<span class="light-live-observations-indicator green-background" ng-show="!noSignal"></span>
+<span class="light-live-observations-indicator red-background blink" ng-show="noSignal"></span>
+
+<!--- Content -->
+<div class="light-observation-content">
+
+	<!--- Linear gauge -->
+	<fhir-light-linear-gauge id="{{header}}-gauge" class="light-observation-linear-gauge" 
+    update-delay="updateDelay"
+    is-updating="isUpdating"		
+		no-signal="noSignal"
+		config="config"
+		parameter-data="data"
+		gauge-width="gaugeWidth"
+		gauge-height="gaugeHeight"
+		alarm-width="alarmWidth">
+	</fhir-light-linear-gauge>
+
+	<!--- Min max values -->
+	<div class="light-observation-col-left">
+		<p class="light-observation-minmax light-observation-max">
+			MAX {{maxValue | number:0}}
+		</p>
+		<p class="light-observation-minmax light-observation-min">
+			MIN {{minValue | number:0}}
+		</p>
+	</div>
+
+	<!--- Value labels and regression arrow -->
+	<div class="light-observation-col-middle">
+		<div class="light-observation-regression" 
+						id="light-observation-regression-{{config.primaryConfig.includedObjects.parameter.type.coding[0].code}}">
+			<span class="light-observation-regression-arrow">&uarr;</span>
+		</div>
+		<div class="light-observation-data-container"> 
+			<p class="light-observation-primarydata">{{primaryData}}</p> 
+			<p class="light-observation-secondarydata" ng-show="hasSecondaryData">
+				{{secondaryData}} / {{tertiaryData}}
+			</p>
+		</div>
+	</div>
+</div>
+

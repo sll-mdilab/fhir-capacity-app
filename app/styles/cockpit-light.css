@@ -1,0 +1,158 @@
+
+
+/* Boxes */
+
+.light-observation-box-container {
+  height: 175px;
+}
+
+
+/* Header and indicator */
+
+.light-observation-header {
+  font-size: 24px;
+  padding: 10px 0;
+  margin: 0;
+} 
+
+.light-live-observations-indicator {
+  position: absolute;
+  top: 0;
+  right: 18px; 
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+
+/* Content */
+
+.light-observation-content {
+  position: relative;
+}
+
+.light-observation-col-left {
+  float:left;
+  width: 25%;
+}
+
+.light-observation-col-middle {
+  float:left;
+  text-align: center;
+  padding-top: 20px;
+  width: 50%;
+  margin:0;
+  padding-right: 25px;
+}
+
+
+/* MinMax */
+
+.light-observation-minmax {
+  color: white;
+  margin-right: 10px;
+}
+
+.light-observation-min {
+  margin-top: 70px;
+}
+
+
+/* Primary Data */
+
+.light-observation-data-container {
+  display: inline-block;
+}
+
+.light-observation-primarydata {
+  text-align: center;
+  font-size: 52px;
+  line-height: 52px;
+  display: inline-block;
+  margin: 0;
+}
+
+.light-observation-secondarydata {
+  text-align: center;
+}
+
+.light-observation-regression {
+  display: inline-block;
+  color: white;
+  width: 25px;
+  height: 52px;
+  vertical-align: top;
+  position:relative;
+}
+
+.light-observation-regression-arrow {
+  display: table-cell;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+}
+
+
+/* Linear Gauge */
+
+.light-observation-linear-gauge svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.light-alarm-indicator, .light-alarm-label {
+  fill: white;
+}
+
+.light-observation-box-container .light-old-value-rect {
+  opacity: 0;
+}
+
+.light-old-value-line {
+  stroke-width: 1px;
+  opacity: 0.7;
+}
+
+
+/* Responsive Design */
+
+@media screen and (max-width: 1023px) {
+  .light-observation-primarydata {
+    font-size: 44px;
+  } 
+
+  .light-observation-minmax {
+    margin-right: 10px;
+    font-size: 12px;
+  }
+} 
+
+
+@media screen and (max-width: 991px) {
+  .light-observation-primarydata {
+    font-size: 52px;
+  } 
+
+  .light-observation-minmax {
+    margin-right: 10px;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+
+  .patient-details h2 {
+    font-size: 14px;
+  }
+
+  .light-observation-regression {
+    display: none;
+  }
+
+  .light-observation-minmax {
+    margin-right: 10px;
+    font-size: 12px;
+  }   
+} 

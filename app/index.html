@@ -1,0 +1,134 @@
+<!doctype html>
+<html class="no-js" ng-app="fhirCapacityApp">
+<head>
+  <meta charset="utf-8">
+  <title ng-bind="title">Innovationsplatsen</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css" />
+  <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css" />
+  <link rel="stylesheet" href="bower_components/angular-ui-switch/angular-ui-switch.css" />
+  <link rel="stylesheet" href="bower_components/angular-tree-control/css/tree-control.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/cockpit.css">
+  <link rel="stylesheet" href="styles/cockpit-light.css">
+  <link rel="stylesheet" href="styles/history.css">
+  <link rel="stylesheet" href="styles/sbar.css">
+  <link rel="stylesheet" href="styles/ordination.css">
+  <link rel="stylesheet" href="styles/modal.css">
+  <link rel="stylesheet" href="styles/overview.css">
+  <link rel="stylesheet" href="styles/human.css">
+  <link rel="stylesheet" href="styles/body_mapper.css">
+  <link rel="stylesheet" href="styles/todo.css">
+  
+  <!-- endbuild --> 
+</head>
+<body>
+
+<!-- Add your site or application content here -->
+<div ui-view></div>
+
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+<script src="bower_components/d3/d3.js"></script>
+<script src="bower_components/ment.io/dist/mentio.js"></script>
+<script src="bower_components/papaparse/papaparse.js"></script>
+<script src="bower_components/FileSaver/FileSaver.js"></script>
+<script src="bower_components/angular-base64/angular-base64.js"></script>
+<script src="bower_components/sprintf/src/sprintf.js"></script>
+<script src="bower_components/angular-uuid-service/angular-uuid-service.js"></script>
+<script src="bower_components/fhir-client-js/dist/fhir-client.js"></script>
+<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+<script src="bower_components/angular-fhir-resources/angularfhirresources-0.2.17.js"></script>
+<script src="bower_components/cbuffer/cbuffer.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-ui-switch/angular-ui-switch.js"></script>
+<script src="bower_components/jquery-ui/jquery-ui.js"></script>
+<script src="bower_components/angular-dragdrop/src/angular-dragdrop.js"></script>
+<script src="bower_components/angular-tree-control/angular-tree-control.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/config.js"></script>
+
+<script src="scripts/controllers/cockpit.js"></script>
+<script src="scripts/controllers/history.js"></script>
+<script src="scripts/controllers/sbar.js"></script>
+<script src="scripts/controllers/ordination.js"></script>
+<script src="scripts/controllers/overview.js"></script>
+<script src="scripts/controllers/human.js"></script>
+<script src="scripts/controllers/body_mapper.js"></script>
+<script src="scripts/controllers/pre-anestesia.js"></script>
+
+<script src="scripts/controllers/todo.js"></script>
+<script src="scripts/controllers/oauth.js"></script>
+<script src="scripts/controllers/oauthcallback.js"></script>
+<script src="scripts/controllers/logout.js"></script>
+
+<script src="scripts/directives/cockpit/fhir-bar-chart.js"></script>
+<script src="scripts/directives/cockpit/fhir-linear-gauge.js"></script>
+<script src="scripts/directives/cockpit/fhir-waveform-canvas.js"></script>
+<script src="scripts/directives/cockpit-light/fhir-light-observation-box.js"></script>
+<script src="scripts/directives/cockpit-light/fhir-light-linear-gauge.js"></script>
+<script src="scripts/directives/history/fhir-circulation-parameter-line-chart.js"></script>
+<script src="scripts/directives/history/fhir-other-parameter-table.js"></script>
+<script src="scripts/directives/history/history-timeline.js"></script>
+<script src="scripts/directives/history/history-interval-select.js"></script>
+<script src="scripts/directives/human/human-body.js"></script>
+
+<script src="scripts/directives/misc/modal.js"></script>
+<script src="scripts/directives/misc/content-editable.js"></script>
+<script src="scripts/directives/misc/date-input.js"></script>
+<script src="scripts/directives/misc/time-input.js"></script>
+
+<script src="scripts/services/capacity-utils.js"></script>
+<script src="scripts/services/config-general/shared-config.js"></script>
+<script src="scripts/services/config-general/config.js"></script>
+
+<script src="scripts/services/config-parameters/parameter-config.js"></script>
+<script src="scripts/services/config-parameters/default-parameters.js"></script>
+<script src="scripts/services/fhir-data-services/encounter-filters.js"></script>
+<script src="scripts/services/fhir-data-services/parameter-data.js"></script>
+<script src="scripts/services/fhir-data-services/active-data-source.js"></script>
+<script src="scripts/services/fhir-data-services/care-case-data.js"></script>
+<script src="scripts/services/fhir-data-services/default-medication-doses.js"></script>
+<script src="scripts/services/observation-calculations/min-max-calculation.js"></script>
+<script src="scripts/services/observation-calculations/regression-calculation.js"></script>
+<script src="scripts/services/body-parts/head-data.js"></script>
+<script src="scripts/services/body-parts/face-data.js"></script>
+<script src="scripts/services/body-parts/neck-data.js"></script>
+<script src="scripts/services/body-parts/left-arm-data.js"></script>
+<script src="scripts/services/body-parts/right-arm-data.js"></script>
+<script src="scripts/services/body-parts/trunk-data.js"></script>
+<script src="scripts/services/body-parts/left-leg-data.js"></script>
+<script src="scripts/services/body-parts/right-leg-data.js"></script>
+
+<script src="scripts/services/fhir-data-services/fhirconceptmap.js"></script>
+<script src="scripts/filters/sanitize.js"></script>
+<script src="scripts/filters/reverse.js"></script>
+
+<!-- endbuild -->
+
+</body>
+</html>

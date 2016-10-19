@@ -1,0 +1,20 @@
+<div class="header">
+  <div class="container">
+    <div class="row">
+
+      <!--- Title -->
+      <div class="col-xs-6 header-title">
+        <h1 class="cursor-pointer" ng-click="vm.changeLocation('overview', vm.config)">Innovationslabbet</h1>
+      </div>
+
+      <!--- Logged in information -->
+      <div class="header-user-information col-xs-6 header-information text-align-right">
+        <h3><span class="hide-for-small-screen">Logged in: </span> {{ vm.config.practitioner.name.text }}</h3>
+        <button class="button grey-button margin-left-5" ng-click="vm.changeLocation('logout', vm.config)">
+          <span class="glyphicon glyphicon-log-out"></span>
+        </button>
+      </div>
+      
+    </div>
+  </div>
+</div>

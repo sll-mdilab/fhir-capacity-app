@@ -1,0 +1,47 @@
+<div class="row history-box white-border-bottom history-cockpit-light">
+  <div class="col-md-4 light-observation-box-container grey-border"> 
+    
+    <!--- Heart rate -->
+    <fhir-light-observation-box id="light-observation-box" 
+              class="{{vm.currentCirculationParameters[vm.defaultParameters.heartRate.code].config.primaryConfig.styleObjects.fontClass}}"
+      is-updating="vm.isUpdating"
+      update-delay="vm.currentDataUpdateDelay"
+      parameter-data="vm.currentCirculationParameters[vm.defaultParameters.heartRate.code].data"
+      parameter-config="vm.currentCirculationParameters[vm.defaultParameters.heartRate.code].config"
+      no-signal="vm.noSignal[vm.defaultParameters.heartRate.code]"
+      gauge-width="16"
+      gauge-height="90"
+      alarm-width="30">
+    </fhir-light-observation-box>
+  </div>
+
+  <!--- Saturation -->
+  <div class="col-md-4 light-observation-box-container grey-border">
+    <fhir-light-observation-box id="light-observation-box" 
+              class="{{vm.currentCirculationParameters[vm.defaultParameters.saturation.code].config.primaryConfig.styleObjects.fontClass}}"
+      is-updating="vm.isUpdating"
+      update-delay="vm.currentDataUpdateDelay"
+      parameter-data="vm.currentCirculationParameters[vm.defaultParameters.saturation.code].data"
+      parameter-config="vm.currentCirculationParameters[vm.defaultParameters.saturation.code].config"
+      no-signal="vm.noSignal[vm.defaultParameters.saturation.code]"
+      gauge-width="16"
+      gauge-height="90"
+      alarm-width="30">
+    </fhir-light-observation-box>
+  </div>
+
+  <!--- Blood pressure -->
+  <div class="col-md-4 light-observation-box-container grey-border">
+    <fhir-light-observation-box id="light-observation-box" 
+              class="{{vm.currentCirculationParameters[vm.defaultParameters.bloodPressure.code].config.primaryConfig.styleObjects.fontClass}}"
+      is-updating="vm.isUpdating"
+      update-delay="vm.currentDataUpdateDelay"
+      parameter-data="vm.currentCirculationParameters[vm.defaultParameters.bloodPressure.code].data"
+      parameter-config="vm.currentCirculationParameters[vm.defaultParameters.bloodPressure.code].config"
+      no-signal="vm.noSignal[vm.defaultParameters.bloodPressure.code]"
+      gauge-width="16"
+      gauge-height="90"
+      alarm-width="30">
+    </fhir-light-observation-box>
+  </div>
+</div>

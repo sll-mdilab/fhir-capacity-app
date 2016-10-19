@@ -1,0 +1,8 @@
+<modal-dialog show='vm.showMedicationModal' complete-button-label="'Add'" complete-function="vm.addMedicationFromList">
+  <div ng-if="vm.showMedicationModal">
+    
+    <!--- Table -->
+    <div class="ordination-search-box custom-ui-grid margin-bottom-20" style="height:auto;" ui-grid="vm.modalGridSettings" ng-if="!vm.refresh" ui-grid-selection ui-grid-auto-resize></div>
+    
+  </div>
+</modal-dialog>

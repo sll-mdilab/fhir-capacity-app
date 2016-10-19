@@ -1,0 +1,90 @@
+
+<!--- Infusion -->
+<div ng-if="order.styleObjects.doseType.parameter == 'rateRatio'">
+  <p class="medication-dose-first-label">Quantity:</p>
+  <input type="number" class="light-grey-background medication-dose-input" 
+          ng-blur="vm.updateMedicationDose(order)"
+          ng-model="order.dosageInstruction[0].rateRatio.numerator.value"></input>
+  <div class="medication-dose-select styled-select colored-select no-padding">
+    <select ng-options="option for option in vm.medicationDoseValues track by option"
+          ng-model="order.dosageInstruction[0].rateRatio.numerator.unit"
+          ng-change="vm.updateMedicationDose(order)"></select>
+  </div>
+  <!--- Second row -->
+  <div class="medication-dose-second-row">
+    <p class="medication-dose-first-label">Interval:</p>
+    <input type="number" class="light-grey-background medication-dose-input" 
+          ng-blur="vm.updateMedicationDose(order)"
+          ng-model="order.dosageInstruction[0].rateRatio.denominator.value"></input>
+    <div class="medication-dose-select styled-select colored-select no-padding">
+      <select ng-options="option for option in vm.medicationDoseTime track by option"
+            ng-model="order.dosageInstruction[0].rateRatio.denominator.unit"
+            ng-change="vm.updateMedicationDose(order)"></select>
+    </div>
+  </div>
+</div>
+
+<!--- Time interval -->
+<div ng-if="order.styleObjects.doseType.parameter == 'timing'">
+  <p class="medication-dose-first-label">Quantity:</p>
+  <input type="number" class="light-grey-background medication-dose-input" 
+          ng-blur="vm.updateMedicationDose(order)"
+          ng-model="order.dosageInstruction[0].doseQuantity.value"></input>
+  <div class="medication-dose-select styled-select colored-select no-padding">
+    <select ng-options="option for option in vm.medicationDoseValues track by option"
+          ng-model="order.dosageInstruction[0].doseQuantity.unit"
+          ng-change="vm.updateMedicationDose(order)"></select>
+  </div>
+  <!--- Second row -->
+  <div class="medication-dose-second-row">
+    <p class="medication-dose-first-label">Times/d:</p> 
+    <input class="light-grey-background medication-dose-input" type="number" 
+            ng-blur="vm.updateMedicationDose(order)"
+            ng-model="order.dosageInstruction[0].timing.repeat.frequency"></input>   
+  </div>  
+</div>
+
+<!--- As needed -->
+<div ng-if="order.styleObjects.doseType.parameter == 'asNeededBoolean'">
+  <p class="medication-dose-first-label">Quantity:</p>
+  <input type="number" class="light-grey-background medication-dose-input" 
+          ng-blur="vm.updateMedicationDose(order)"
+          ng-model="order.dosageInstruction[0].doseQuantity.value"></input>
+  <div class="medication-dose-select styled-select colored-select no-padding">
+    <select ng-options="option for option in vm.medicationDoseValues track by option"
+          ng-model="order.dosageInstruction[0].doseQuantity.unit"
+          ng-change="vm.updateMedicationDose(order)"></select>
+  </div>
+</div>
+
+
+<!--- Target -->
+<div ng-if="order.styleObjects.doseType.parameter == 'additionalInstructions'">
+  
+  <!--- Target toggle -->
+  <p class="cursor-pointer medication-dose-first-label" 
+            ng-class="order.styleObjects.target.styleObjects.fontClass" ng-click="vm.toggleTarget(order)">
+    <span class="glyphicon" ng-class="order.styleObjects.target.styleObjects.iconClass" aria-hidden="true"></span> 
+    <span>{{order.styleObjects.target.type.coding[0].display}}</span>
+  </p>
+
+  <!--- Inputs -->
+  <input type="number" type="text" class="light-grey-background medication-dose-input" 
+         ng-model="order.styleObjects.lowerOrdinationLimit" ng-blur="vm.updateMedicationDose(order)"/> - 
+  <input type="number" type="text" class="light-grey-background medication-dose-input"
+        ng-model="order.styleObjects.upperOrdinationLimit" ng-blur="vm.updateMedicationDose(order)"/>
+  
+  <!--- Second row -->
+  <div class="medication-dose-second-row">
+    <p class="medication-dose-first-label">Max/d: </p>
+    <input class="light-grey-background medication-dose-input" ng-blur="vm.updateMedicationDose(order)"
+            ng-model="order.dosageInstruction[0].maxDosePerPeriod.numerator.value">
+    </input>
+    <div class="medication-dose-select styled-select colored-select no-padding">
+      <select ng-options="option for option in vm.medicationDoseValues track by option"
+            ng-model="order.dosageInstruction[0].maxDosePerPeriod.numerator.unit"
+            ng-change="vm.updateMedicationDose(order)"></select>
+    </div>
+  </div>
+</div>
+

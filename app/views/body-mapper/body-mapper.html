@@ -1,0 +1,357 @@
+<div ui-view="header"></div>
+
+<div class="container">
+  <div class="row patient-details">
+    <div class="col-xs-6 patient-details-left no-padding">
+      <h2>{{vm.patient}}</h2>
+    </div>
+    <div class="col-xs-6 patient-details-right no-padding">
+      <h2>7010101010</h2>
+    </div>
+</div>
+
+<div class="row margin-top-20">
+	<div class="col-sm-4 margin-bottom-2">
+		<h2 class="human-menu-title white-border-bottom">Search for a body site</h2>
+	</div>
+	<div class="col-sm-6 margin-bottom-2">
+		<h2 class="human-menu-title white-border-bottom">Select a SNOMED-CT body site term</h2>
+	</div>
+	<div class="col-sm-2 margin-bottom-2">
+		<span ng-if="vm.dataLoading" class="glyphicon glyphicon-refresh glyphicon-spin" style="font-size:2.0em;"></span>
+	</div>
+</div>
+  
+<div class="row margin-top-20">
+
+		<div class="col-sm-4 margin-bottom-2">
+			<form ng-submit="vm.doSearch()">
+				<div class="row margin-top-2">
+					<div class="col-sm-9 margin-bottom-2">
+						<input type="text" class="form-control" ng-model="vm.searchString"  size="10" placeholder="type body site search string here i.e. 'wrist'" 
+								title="You can use logcal operators like AND,OR,NOT.&#010;When the words contain non-ASCII characters you must put them in quotes, i.e. &#010;&quot;vänster&quot; AND &quot;höft&quot;">						
+						</input>
+					</div>
+					<div class="col-sm-3 margin-bottom-2">
+						<button class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+					</div>
+					
+				</div>
+			</form>	
+			<br>
+			<div class="clinical-model-option radio margin-bottom-20">
+				<label><input type="radio" name="language" ng-model="vm.language" value="en">English</label>
+			</div>
+			<div class="clinical-model-option radio margin-bottom-20">
+				<label><input type="radio" name="language" ng-model="vm.language" value="sv">Svenska</label>
+			</div>
+		</div>
+		
+		<div class="col-sm-6 margin-bottom-2">
+			<!--ul>
+				<li ng-repeat="term in vm.searchResults_SNOMED">{{term.label}}</li>
+			</ul-->
+			
+			<div class="panel panel-default" ng-show="vm.show_search">
+				<div class="panel-body">	 
+					<div>					
+
+						<treecontrol class="tree-light"
+									 tree-model="vm.searchResults_SNOMED"
+									 options="vm.treeOptions"
+									 on-selection="vm.showSelectedTerm(node)">
+							{{node.label}}
+						</treecontrol>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-2 margin-bottom-2">
+			Show/Hide <input type="checkbox" ng-model="vm.show_search">
+		</div>
+</div>
+
+<!-- Wider -->
+<div class="row margin-top-20">
+	<div class="col-sm-10 margin-bottom-2">
+		<h2 class="human-menu-title white-border-bottom">Choose a Term as a starting point for mapping</h2>
+	</div>
+	<div class="col-sm-2 margin-bottom-2">
+		Show/Hide <input type="checkbox" ng-model="vm.show_wider">
+	</div>
+</div>
+
+<div class="row margin-top-2">
+	<div class="col-sm-5 margin-bottom-2">
+		<h3>SNOMED-CT</h3>
+	</div>
+	<div class="col-sm-5 margin-bottom-2">
+		<h3>IEEE X73</h3>
+	</div>
+	<div class="col-sm-2 margin-bottom-2">
+		<h3>Clinisoft</h3>
+	</div>
+</div>	
+
+<div class="row margin-top-2" ng-show="vm.show_wider">
+
+	<div class="col-sm-5 margin-bottom-2">
+	
+		<div class="panel panel-default">
+			<div class="panel-body">	 
+				<div>
+					<treecontrol class="tree-light"
+								 tree-model="vm.hierarchyWider_SNOMED"
+								 options="vm.treeOptions"
+								 on-selection="vm.handleSelectedSNOMEDWider(node, $parentNode, $index)"
+								 selected-node="vm.selectedSNOMED_Wider"
+								 expanded-nodes="vm.expandedSNOMED_Wider">
+						{{node.label}}
+					</treecontrol>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+		
+	<div class="col-sm-5 margin-bottom-2">
+
+			<div class="panel panel-default">
+			<div class="panel-body">	 
+				<div>
+					<treecontrol class="tree-light"
+								 tree-model="vm.hierarchyWider_IEEEX73"
+								 options="vm.treeOptions"
+								 on-selection="vm.handleSelectedIEEEX73Wider(node, $parentNode, $index)"
+								 selected-node="vm.selectedWider[0].system"
+								 expanded-nodes="vm.expandedWider[0]">
+						{{node.label}}
+					</treecontrol>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="col-sm-2 margin-bottom-2">
+	
+		<div class="panel panel-default">
+			<div class="panel-body">	 
+				<div>
+					<treecontrol class="tree-light"
+								 tree-model="vm.hierarchyWider_Clinisoft"
+								 options="vm.treeOptions"
+								 on-selection="vm.handleSelectedClinisoftWider(node, $parentNode, $index)"
+								 selected-node="vm.selectedWider[1].system"
+								 expanded-nodes="vm.expandedWider[1]">
+						{{node.label}}
+					</treecontrol>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+<!-- Narrow -->
+<div class="row margin-top-20">
+	<div class="col-sm-10 margin-bottom-2">
+		<h2 class="human-menu-title white-border-bottom">Select a best fit body site Term for clinical impression</h2>
+	</div>
+	<div class="col-sm-2 margin-bottom-2">
+		Show/Hide <input type="checkbox" ng-model="vm.show_narrow">
+	</div>
+</div>
+
+<div class="row margin-top-2">
+	<div class="col-sm-5 margin-bottom-2">
+		<h3>SNOMED-CT</h3>
+	</div>
+	<div class="col-sm-5 margin-bottom-2">
+		<h3>IEEE X73</h3>
+	</div>
+	<div class="col-sm-2 margin-bottom-2">
+		<h3>Clinisoft</h3>
+	</div>
+</div>	
+
+<div class="row margin-top-2" ng-show="vm.show_narrow">
+	<div class="col-sm-5 margin-bottom-2">
+	
+		<div class="panel panel-default">
+			<div class="panel-body">	 
+				<div>
+					<treecontrol class="tree-light"
+								 tree-model="vm.hierarchyNarrower_SNOMED"
+								 options="vm.treeOptions"
+								 on-selection="vm.handleSelectedSNOMEDNarrower(node, $parentNode, $index)"
+								 selected-node="vm.selectedSNOMED_Narrower"
+								 expanded-nodes="vm.expandedSNOMED_Narrowe">
+						{{node.label}}
+					</treecontrol>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="col-sm-5 margin-bottom-2">
+
+		<div class="panel panel-default">
+			<div class="panel-body">	 
+				<div>
+					<treecontrol class="tree-light"
+								 tree-model="vm.hierarchyNarrower_IEEEX73"
+								 options="vm.treeOptions"
+								 on-selection="vm.handleSelectedIEEEX73Narrower(node, $parentNode, $index)"
+								 selected-node="vm.selectedIEEEX73_Narrower"
+								 expanded-nodes="vm.expandedIEEEX73_Narrower">
+						{{node.label}}
+					</treecontrol>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="col-sm-2 margin-bottom-2">
+
+		<div class="panel panel-default">
+			<div class="panel-body">	 
+				<div>
+					<treecontrol class="tree-light"
+								 tree-model="vm.hierarchyNarrower_Clinisoft"
+								 options="vm.treeOptions"
+								 on-selection="vm.handleSelectedClinisoftNarrower(node, $parentNode, $index)"
+								 selected-node="vm.selectedClinisoft_Narrower"
+								 expanded-nodes="vm.expandedClinisoft_Narrower">
+						{{node.label}}
+					</treecontrol>
+				</div>
+			</div>
+		</div>
+		<div>
+			Authoring <input type="checkbox" ng-model="vm.showClinisoftAuthoring">
+		</div>
+		<div ng-show="vm.showClinisoftAuthoring">
+				<hr>
+				
+				Map or Unmap selected SNOMED-CT term ({{vm.selectedSNOMED.id}}) with this Clinisoft grid location
+				
+				<input type="text" class="form-control" ng-model="vm.mapClinisoftCellID"  size="2">
+				
+				<button class="btn btn-primary" ng-click="vm.doMapClinisoft('map')">Map</button>
+				<button class="btn btn-primary" ng-click="vm.doMapClinisoft('unmap')">Unmap</button>
+				<hr>
+		</div>
+	
+	</div>
+</div>
+<div class="row margin-top-20">
+
+    <!--- Left section -->
+    <div class="human-menu col col-sm-4 margin-bottom-20">
+      <h2 class="human-menu-title white-border-bottom">Add clinical impressions</h2>
+      <div class="grey-background">
+
+        <!--- List elements -->
+        <p class="human-menu-item no-margin padding-10 light-grey-border-top" ng-repeat="item in vm.clinicalImpressionItems">
+          {{ item.name }}
+          <span class="glyphicon glyphicon-plus human-menu-add light-grey-background" ng-show="vm.showAddButtons"
+                    ng-click="vm.addActiveItem(item)"></span>
+
+          <!--- Draggable icons -->
+          <span class="glyphicon glyphicon-pushpin human-model-attribute light-grey-background"
+                  ng-repeat="activeItem in item.activeList" 
+                  ng-click="vm.setActiveItemHighlight(activeItem, !activeItem.isHighlight)" 
+                  ng-class="{'blue-background': activeItem.isHighlight}"
+                  jqyoui-draggable="{onStart: 'vm.onStart(activeItem)', onDrag: 'vm.onDrag(activeItem)', onStop: 'vm.onStop(activeItem)'}" 
+                  data-drag="true">
+          </span>    
+        </p>
+      </div>
+    </div>
+
+	<!--- Push-pin parking section -->
+	<div class="human-menu col col-sm-1 margin-bottom-20">
+	</div>
+	
+	<!--- Middle section -->
+	<div class="human-menu col col-sm-3 margin-bottom-20">
+		<h2 class="human-menu-title white-border-bottom">Selected Terms <span class="glyphicon glyphicon-tag" style="font-size:1.0em;"></span></h2>
+		<!--img class="img-responsive" ng-src="/images/organs/humancontour.png"></img-->
+		<div class="margin-top-20">SNOMED: {{vm.selectedSNOMED.id}} {{$index}} {{$path}}</div>
+		<div class="margin-top-20">IEEE X73: {{vm.selectedIEEEX73.id}} {{$index}} {{$path}}</div>
+		<div class="margin-top-20">Clinisoft: {{vm.selectedClinisoft.id}} {{$index}} {{$path}}</div>
+		<br>
+		<button class="btn btn-primary" ng-click="vm.clearSelection()" ng-show="vm.selectedSNOMED !== undefined"><span class="glyphicon glyphicon-erase"></span> Clear</button>
+		
+	</div>
+	
+	<!--- Right section -->
+    <div class="human-menu col col-sm-4 margin-bottom-20">
+      <h2 class="human-menu-title white-border-bottom">Active clinical impressions</h2>
+      
+      <!--- List elements -->
+      <div class="grey-background" ng-repeat="allActiveItem in vm.allActiveList">
+        <div class="no-padding no-marging">
+          <p class="human-menu-item no-margin padding-10 light-grey-border-top cursor-pointer" 
+                    ng-class="{'blue-background': allActiveItem.isHighlight}"
+                    ng-click="vm.setActiveItemHighlight(allActiveItem, !allActiveItem.isHighlight)">
+            <span ng-bind="allActiveItem.name"></span>
+          </p>
+
+          <!--- Expandable information -->
+          <div ng-show="allActiveItem.isHighlight" class="human-menu-information grey-background padding-10" ng-repeat="bodySite in allActiveItem.bodyPart">
+            <p class="no-margin">- SNOMED: {{bodySite.SNOMED}}</p>
+			<p class="no-margin">- IEEE: {{bodySite.IEEE}}</p>
+			<p class="no-margin">- Clinisoft: {{bodySite.Clinisoft}}</p>
+            <!--p class="no-margin" ng-show="vm.showIEEE">- Body part: {{allActiveItem.bodyPart[0].IEEE}}</p-->
+          </div>
+        </div>
+      </div> 
+	  <br>
+	  <button class="btn btn-primary" ng-click="vm.deleteClinicalExpression()" ng-show="vm.allActiveList.length > 0"><span class="glyphicon glyphicon-trash"></span>  Delete</button>
+    </div>
+</div>
+
+		
+<div class="row margin-top-20">
+
+
+	<!--- Checkboxes -->
+	<div class="col-sm-12 margin-bottom-2">
+				<button class="btn btn-primary" ng-click="vm.showReport()"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
+				<a class="btn btn-primary" id="download" download="ClinicalImpressionReport.png" href="#">
+					<span class="glyphicon glyphicon-download-alt"></span>
+					<span class="glyphicon glyphicon-picture"> Save</span>
+				</a>
+				<div class="clinical-model-option radio margin-bottom-20">
+				  <label><input type="radio" name="codeSystem" ng-model="vm.chosenCodingSystem" value="snomed" ng-click="vm.showReport()">SNOMED-CT</label>
+				</div>
+				<div class="clinical-model-option radio margin-bottom-20">
+				  <label><input type="radio" name="codeSystem" ng-model="vm.chosenCodingSystem" value="ieee" ng-click="vm.showReport()">IEEE X73</label>
+				</div>
+				<div class="clinical-model-option radio margin-bottom-20">
+				  <label><input type="radio" name="codeSystem" ng-model="vm.chosenCodingSystem" value="clinisoft" ng-click="vm.showReport()">Clinisoft</label>
+				</div>
+	</div>
+
+</div>
+<div class="row margin-top-20">
+	<div class="col-sm-6 margin-bottom-2">
+		<canvas id="clinImpressionReport" width="750" height="600" style="border:1px solid blue; background-color:white">
+			Your browser does not support the HTML5 canvas tag.
+		</canvas>
+	</div>
+</div>
+
+<br>	
+<br>	
+<div class="col-sm-4 margin-bottom-2">
+	Last selected Node: {{vm.selectedNode.id}} {{$index}} {{$path}}
+</div>
+
+
+

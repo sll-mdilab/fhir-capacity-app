@@ -1,0 +1,430 @@
+
+/* Active patient */
+
+.overview-patient {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.overview-active-patient {
+  height: 110px;
+  position: relative;
+}
+
+.overview-image-cell {
+	width: 90px;
+	padding: 5px;
+	position: relative;
+}
+
+.overview-image-cell .glyphicon-user {
+	font-size: 70px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+
+.overview-active-patient-data {
+  position: relative;
+  padding: 10px;
+  line-height: 16px;
+}
+
+.overview-text-group {
+	font-size: 12px
+}
+
+.overview-text-header {
+	font-size: 14px;
+}
+
+
+/* Active patient - Application container */
+
+.overview-application-container {
+	height: 100%;
+	vertical-align: top;
+	width: 700px;
+	text-align: right;
+}
+
+.overview-application-box {
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	vertical-align: top;
+	margin-left: 5px;
+	width: 65px;
+	height: 100%;
+	padding: 5px;
+	line-height: 14px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.overview-application-box p {
+	font-size: 12px;
+}
+
+.overview-application-box .glyphicon {
+	font-size: 32px;
+	margin-top: 8px;
+	margin-bottom: 7px;
+}
+
+.overview-application-box .glyphicon-with-vertical-space {
+	margin-top: 6px;
+	margin-bottom: 9px;
+}
+
+/* MEWS score for patient */
+
+.overview-mews-box {
+	float: left;
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	vertical-align: top;
+	margin-left: 5px;
+	width: 65px;
+	height: 100%;
+	padding: 5px;
+	line-height: 16px;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	border-right: 2px solid white;
+	font-weight: bolder;
+}
+
+.overview-mews-box div.mews-header {
+	cursor: pointer;
+}
+
+.overview-mews-box p.mewscore{
+	margin-top: 10px;
+	font-size: 30px;
+	line-height: 30px;
+}
+
+.overview-mews-box button.update-mews-button {
+	border-radius: 4px;
+	background-color: #BDBDBD;
+	width: 90%;
+	position: absolute;
+	bottom: 2%;
+	left: 5%;
+}
+
+div.mews-tooltip {
+	float: left;
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	vertical-align: top;
+	height: 100%;
+	line-height: 12px;
+	cursor: pointer;
+	width: 110px;
+	font-weight: normal;
+	font-size: 12px;
+	padding: 15px 2px 5px 2px;
+	border-bottom-right-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+.fa-spin {
+  -webkit-animation: fa-spin 2s infinite linear;
+  animation: fa-spin 2s infinite linear;
+}
+@-webkit-keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+/* Scheduled patient */
+
+.overview-scheduled-patient {
+	line-height: 22px;
+}
+
+.overview-scheduled-patient-datetime {
+	display: inline-block;
+	font-size: 12px;
+	position: relative;
+}
+
+.overview-scheduled-patient-datetime div {
+	display: inline-block;
+}
+
+.overview-scheduled-patient-datetime-content {
+	padding: 5px 10px;
+}
+
+.overview-scheduled-patient-datetime-content * {
+	font-weight: normal;
+	line-height: 16px;
+}
+
+.overview-scheduled-patient-data-box {
+	display: inline-block;
+	padding-left: 15px;
+}
+
+.overview-scheduled-patient-data-box-left {
+	width: 60%;
+}
+
+.overview-scheduled-patient-data-box-right {
+	width: 35%;
+}
+
+.overview-scheduled-patient-data-title {
+	width: 100%;
+}
+
+.overview-scheduled-patient-data-box p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.overview-scheduled-patient-button {
+	display: inline-block;
+	text-align: center;
+	padding: 12px;
+	vertical-align: top;
+}
+
+
+/* Edit options */
+
+.overview-header-button {
+  margin: 5px 0 5px 5px;
+  height: 36px;
+}
+
+.overview-remove-active-patient,
+.overview-remove-active-patient-small,
+.overview-remove-scheduled-patient {
+	position: absolute; 
+	left: 0; 
+	z-index: 1;
+	text-align: center; 
+	font-size: 12px;
+}
+
+.overview-remove-active-patient {
+	bottom: 0; 
+	right: 0; 
+	padding: 5px 0; 
+}
+
+.overview-remove-scheduled-patient {
+	top: 0; 
+	right: 0; 
+	padding: 12px;
+}
+
+.overview-remove-active-patient-small {
+	display: none;
+	bottom: 0;
+	right: 10px;
+	padding: 10px 0;
+}
+
+
+/* Notifications */
+
+.overview-notification {
+	position: absolute;
+	top: -5px;
+	right: -5px;
+}
+
+
+/* Patient transfer */
+
+.patient-transfer-type {
+  font-weight: 200;
+  font-size: 14px;
+  padding: 10px 20px;
+}
+
+
+/* Responsive design */
+
+@media (max-width: 1023px) {
+
+	.overview-application-container {
+		width: 146px;
+	}
+
+	.overview-application-box {
+		height: 44px;
+		width: 44px;
+		margin-left: 2px;
+	}
+
+	.overview-application-box p {
+		display: none;
+	}
+
+	.overview-application-box-top {
+		margin-bottom: 5px;
+	}
+
+	.overview-application-box .glyphicon {
+		font-size: 25px;
+		margin-top: 5px;
+	}
+
+	.overview-application-box .glyphicon-with-vertical-space {
+		margin-top: 4px;
+	}
+
+	.overview-scheduled-patient-data {
+		font-size: 12px;
+	}
+
+	.overview-scheduled-patient-data-box {
+		line-height: 20px;
+	}
+
+	.overview-scheduled-patient-data-box p {
+		height: 20px;
+	}
+
+	.overview-mews-box {
+		font-size: 10px;
+		font-weight: normal;
+		height: 44px;
+		width: 44px;
+		margin-left: 2px;
+		border-radius: 4px;
+		border: none;
+	}
+
+	div.mews-tooltip {
+		display: none;
+	}
+
+	.mewscore {
+		visibility: hidden;
+	}
+}
+
+@media (max-width: 500px) {
+
+	.overview-container h1 {
+	  font-size: 16px;
+	  line-height: 24px;
+	}
+
+	.overview-active-patient {
+	  height: 90px;
+	}
+
+	.overview-image-cell {
+		width: 70px;
+	}
+
+	.overview-image-cell .glyphicon {
+		font-size: 50px;
+	}
+
+	.overview-active-patient-data {
+	  line-height: 14px;
+	  padding: 5px;
+	}
+
+	.overview-application-container {
+		width: 120px;
+	}
+
+	.overview-application-box {
+		height: 35px;
+		width: 35px;
+	}
+
+	.overview-application-box .glyphicon {
+		font-size: 20px;
+		margin-top: 1px;
+	}
+
+	.overview-application-box .glyphicon-with-vertical-space {
+		margin-top: 0px;
+	}
+
+	.overview-scheduled-patient-datetime-content {
+		padding: 5px;
+		min-height: 50px;
+		font-size: 10px;
+	}
+
+	.overview-scheduled-patient-data-box {
+		width: 100%;	
+		padding-left: 0;
+		line-height: 12px;
+		padding-left: 5px;
+	}
+
+	.overview-scheduled-patient-data-box p {
+		height: 12px;
+		font-size: 10px;
+	}
+
+	.overview-scheduled-patient-data p {
+		display: inline-block;
+	}
+
+	.overview-scheduled-patient,
+	.overview-text-header,
+	.overview-text-group {
+		font-size: 11px
+	}
+
+	.overview-mews-box {
+		padding-top: 0px;
+		font-size: 9px;
+		font-weight: normal;
+		height: 35px;
+		width: 35px;
+		margin-left: 2px;
+	}
+
+}
+
+@media (max-width: 374px) {
+	.overview-image-cell {
+		display: none;
+	}
+	
+	.overview-text-group,
+	.overview-remove-active-patient-small {
+		max-width: 100px;
+	}
+
+	.overview-remove-active-patient-small {
+		display: block;
+	}
+}
+
+

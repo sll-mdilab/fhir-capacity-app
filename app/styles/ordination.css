@@ -1,0 +1,299 @@
+
+/* Add ordination menu */
+
+.add-ordination-input {
+	height: 32px;
+	border-radius: 4px;
+	vertical-align: top;
+}
+
+.add-ordination-input input {
+	border: none;
+	padding: 0 10px;
+	height: 100%;
+	width: 100%;	
+	background: transparent;
+}
+
+.add-ordination-input input:focus {
+	outline: none;
+}
+
+
+/* Ordination grid */
+
+.ordination-container .grid-cell {
+	line-height: 1.2;
+	vertical-align: middle;
+}
+
+.ordination-container .parameter-container .grid-cell {
+	padding: 5px 10px;
+}
+
+.ordination-container .medication-container .grid-cell {
+	padding: 10px;
+}
+
+.ordination-container .grid-dynamic-cell {
+	overflow: hidden;
+	max-width: 60px;
+}
+
+.ordination-container .grid-long-cell {
+	width: 250px;
+}
+
+.ordination-container .grid-short-cell {
+	width: 100px;
+}
+
+.ordination-container .grid-short-cell input {
+	margin: 0;
+}
+
+.ordination-container .parameter-status-cell {
+	width: 30px;
+	text-align: center;
+}  
+
+.ordination-container .medication-status-cell {
+	width: 60px;
+	text-align: center;
+}  
+
+
+/* Header dropdown */
+
+.ordination-container .grid-header .grid-cell {
+	position: relative;
+	padding: 10px;
+	vertical-align: middle;
+}
+
+.grid-header-sort-icon {
+  font-size: 12px;
+  margin-left: 2px;
+}
+
+.grid-header-dropdown-icon {
+	position: absolute;
+	padding: 10px;
+	top: 3px;
+	right: 0;
+}
+
+.grid-header-dropdown {
+	position: absolute;
+	min-width: 160px;
+	top: 37px;
+	left: 0;
+	z-index: 1;
+	padding: 0;
+}
+
+.grid-header-dropdown li {
+	list-style: none;
+	text-align: left;
+	height: 34px;
+	padding: 10px;
+	font-size: 12px;
+	line-height: 12px;
+	width: 100% !important;
+}
+
+
+/* Grid cell content */
+
+.ordination-container .grid-fixed-cell .glyphicon {
+	margin: 5px;
+	font-size: 16px;
+	vertical-align: middle;
+}
+
+.medication-dose-container * {
+	display: inline-block;
+}
+
+.medication-dose-second-row {
+	vertical-align: top;
+	width: 100%;
+	margin-top: 5px;
+}
+
+.medication-dose-first-label {
+	width: 65px;
+}
+
+.medication-dose-select select {
+	height: 25px !important;
+	background-color: #555;
+}
+
+.medication-dose-input {
+	width: 50px !important;
+}
+
+.medication-dose-select {
+	vertical-align: bottom;
+	width: 60px !important;
+}
+
+.medication-dose-toggle {
+	font-size: 10px;
+}
+
+.medication-dose-toggle-arrow {
+	font-size: 9px;
+	margin: 0 -3px;
+}
+
+.required-label {
+	font-size: 12px;
+}
+
+
+/* Additional medication information */
+
+.medication-additional-information-box {
+	padding: 10px;
+	border-bottom: 1px #fff solid;
+	width: 100%;
+	text-align: left;
+	position: relative;
+}
+
+.medication-additional-information-box-close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 18px;
+}
+
+.medication-additional-information-left-content {
+	padding-right: 30px;
+}
+
+.medication-additional-information-right-content {
+	padding-left: 30px;
+}
+
+.medication-additional-information-box ul {
+	padding-left: 20px
+}
+
+.medication-additional-information-box p,
+.medication-additional-information-box li {
+	font-size: 12px;
+	line-height: 1.7;
+}
+
+
+/* Responsive design */
+
+@media (max-width: 992px) {
+  .ordination-container,
+  .ordination-container .button {
+     font-size: 12px;
+     margin-top: 10px;
+  }
+
+	.ordination-container .grid-long-cell {
+		width: 200px;
+	}
+
+	.ordination-container .medication-container .grid-fixed-cell-container {
+		width: 35px;
+	}
+
+  .ordination-container .grid-short-cell {
+		width: 70px;
+	}
+
+	.grid-header-dropdown-icon {
+		padding: 10px 5px;
+	}
+
+	.medication-dose-input {
+		width: 50px !important;
+	}
+
+	.medication-dose-select {
+		width: 55px !important;
+	}
+
+	.required-label {
+		font-size: 10px;
+	}
+}
+
+
+@media (max-width: 767px) {
+	.add-ordination-menu-input {
+		margin-bottom: 10px;
+	}
+
+	.ordination-container .grid-cell,
+	.ordination-container .grid-header-cell,
+	.ordination-container .grid-fixed-cell {
+		padding-left: 5px !important;
+		padding-right: 5px !important;
+	}
+
+  .ordination-container .grid-short-cell {
+		width: 60px;
+	}
+
+	.ordination-container .parameter-container .grid-long-cell {
+		width: 150px;
+	}
+
+	.ordination-container .grid-cell input {
+		padding-right: 0;
+	}
+
+	.medication-additional-information-left-content,
+	.medication-additional-information-right-content {
+		padding: 0;
+	}
+}
+
+
+@media (max-width: 567px) {
+	.ordination-container .medication-container .grid-fixed-cell-container {
+		width: 60px;
+	}
+
+	.ordination-container .grid-fixed-cell {
+		padding: 5px 0 !important;
+	}
+
+	.ordination-container .parameter-status-cell,
+	.ordination-container .medication-status-cell {
+		width: 25px;
+		text-align: left;
+	}
+
+	.ordination-container .grid-fixed-cell .glyphicon {
+		font-size: 14px;
+		margin:  5px;
+	}
+
+}
+
+
+@media (max-width: 374px) {
+  .ordination-container,
+  .ordination-container .button {
+     font-size: 10px;
+  }
+
+	.ordination-container .medication-container .grid-cell input {
+		padding-left: 2px;
+	}
+
+  .ordination-container .parameter-container .grid-short-cell {
+		width: 50px;
+	}
+
+}

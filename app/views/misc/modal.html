@@ -1,0 +1,12 @@
+<div class="ng-modal" ng-show="show">
+  <div class="ng-modal-overlay black-background" ng-click="hideModal()"></div>
+  <div class="ng-modal-dialog black-background white-border">
+    <div class="ng-modal-dialog-content" ng-transclude></div>
+    <div class="ng-modal-button-box">
+      <button class="button red-button" ng-click="hideModal()">Cancel</button>
+      <button class="button green-button" ng-click="completeFunction()"> {{ completeButtonLabel }} </button>
+    </div>
+  </div>
+</div>
+
+

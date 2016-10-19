@@ -1,0 +1,61 @@
+<div class="container">
+
+  <!--- Patient details -->
+  <div class="row patient-details">
+    <div class="col-xs-6 patient-details-left no-padding">
+      <h2 ng-bind="vm.config.patient.name[0].text"></h2>
+    </div>
+    <div class="col-xs-6 patient-details-right no-padding">
+      <h2 ng-bind="vm.config.patient.id"></h2>
+    </div>
+  </div>
+
+  <!--- Cockpit container -->
+  <div class="row no-margin">
+
+    <!--- Heart rate box -->
+    <div class="col-md-4 light-observation-box-container grey-border"> 
+      <fhir-light-observation-box id="light-observation-box" 
+              class="{{vm.circulationParameters[vm.defaultParameters.heartRate.code].config.primaryConfig.styleObjects.fontClass}}"
+        is-updating="vm.isUpdating"
+        update-delay="vm.updateDelay"
+        parameter-data="vm.circulationParameters[vm.defaultParameters.heartRate.code].data"
+        parameter-config="vm.circulationParameters[vm.defaultParameters.heartRate.code].config"
+        no-signal="vm.noSignal[vm.defaultParameters.heartRate.code]"
+        gauge-width="20"
+        gauge-height="110"
+        alarm-width="35">
+      </fhir-light-observation-box>
+    </div>
+
+    <!--- Saturation box -->
+    <div class="col-md-4 light-observation-box-container grey-border">
+      <fhir-light-observation-box id="light-observation-box" 
+              class="{{vm.circulationParameters[vm.defaultParameters.saturation.code].config.primaryConfig.styleObjects.fontClass}}"
+        is-updating="vm.isUpdating"
+        update-delay="vm.updateDelay"
+        parameter-data="vm.circulationParameters[vm.defaultParameters.saturation.code].data"
+        parameter-config="vm.circulationParameters[vm.defaultParameters.saturation.code].config"
+        no-signal="vm.noSignal[vm.defaultParameters.saturation.code]"
+        gauge-width="20"
+        gauge-height="110"
+        alarm-width="35">
+      </fhir-light-observation-box>
+    </div>
+
+    <!--- Blood pressure box -->
+    <div class="col-md-4 light-observation-box-container grey-border">
+      <fhir-light-observation-box id="light-observation-box" 
+              class="{{vm.circulationParameters[vm.defaultParameters.bloodPressure.code].config.primaryConfig.styleObjects.fontClass}}"
+        is-updating="vm.isUpdating"
+        update-delay="vm.updateDelay"
+        parameter-data="vm.circulationParameters[vm.defaultParameters.bloodPressure.code].data"
+        parameter-config="vm.circulationParameters[vm.defaultParameters.bloodPressure.code].config"
+        no-signal="vm.noSignal[vm.defaultParameters.bloodPressure.code]"
+        gauge-width="20"
+        gauge-height="110"
+        alarm-width="35">
+      </fhir-light-observation-box>
+    </div>
+  </div>
+</div>

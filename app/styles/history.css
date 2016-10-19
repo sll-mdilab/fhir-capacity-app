@@ -1,0 +1,422 @@
+
+/* History view */
+
+.history-container {
+  padding: 0 15px;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.svg-container {
+  line-height: 0;
+  position: relative
+}
+
+
+/* History Cockpit light */
+
+
+.history-cockpit-light .light-observation-box-container {
+  height: 150px;
+}
+
+.history-cockpit-light .light-observation-header {
+  padding: 5px 0;
+}
+
+.history-cockpit-light .light-live-observations-indicator {
+  margin-top: 15px;
+}
+
+.history-cockpit-light .light-observation-col-left {
+  width: 24%;
+}
+
+.history-cockpit-light .light-observation-minmax {
+  margin-right:0;
+  font-size: 12px;
+}
+
+.history-cockpit-light .light-observation-min {
+  margin-top: 55px;
+}
+
+.history-cockpit-light .light-observation-col-middle {
+  padding-right: 0;
+  width: 50%;
+}
+
+.history-cockpit-light .light-observation-primarydata {
+  font-size: 48px;
+  line-height: 42px;
+}
+
+.history-cockpit-light #light-blood-pressure-box .light-observation-primarydata {
+  font-size: 36px;
+  line-height: 30px;
+}
+
+
+/* Parameter boxes */
+
+.circulation-parameter-history-box,
+.other-parameter-history-box {
+  margin: auto 0;
+}
+
+
+/* Parameter boxes labels */
+
+.circulation-parameter-history-box .history-box-label {
+  stroke: none;
+  padding: 5px 10px;
+  height: 100px;
+}
+
+.circulation-parameter-history-box-container {
+  float: left;
+  height: 0px;
+  line-height: 90px;
+  margin: 0;
+}
+
+.circulation-parameter-history-box-min-max-container {
+  float: right;
+  height: 80px;
+  position: relative;
+  margin: 5px 0;
+}
+
+.circulation-parameter-history-box-min,
+.circulation-parameter-history-box-max {
+  display: block;
+  text-align: right;
+  position: absolute;
+}
+
+.circulation-parameter-history-box-max {
+  top: 0;
+  right: 0;
+}
+
+.circulation-parameter-history-box-min {
+  bottom: 0;
+  right: 0;
+}
+
+.other-parameter-history-box .history-box-label {
+  padding: 0 10px;
+  line-height: 30px;
+  overflow: hidden;
+  height: 30px;
+}
+
+
+/* Ciruculation parameter boxes */
+
+.circulation-line-chart {
+  z-index: -1;
+}
+
+.primary-plot,
+.patient-primary-plot {
+  fill: none;
+  stroke-width: 2;
+}
+
+.secondary-plot,
+.tertiary-plot,
+.patient-secondary-plot,
+.patient-tertiary-plot {
+  fill: none;
+  stroke-width: 1;
+}
+
+.patient-primary-plot,
+.patient-secondary-plot,
+.patient-tertiary-plot {
+  stroke-dasharray: 5,5;
+}
+
+.focus-overlay {
+  fill: none !important;
+  stroke: none;
+  pointer-events: all;
+}
+
+.focus-box {
+  pointer-events: none;
+  position: absolute;
+  z-index: 3;
+  padding: 10px;
+}
+
+.focus-box label {
+  display: block;
+  line-height: 14px;
+}
+
+
+/* Circulation parameter toolbox (to the right) */
+ 
+.circulation-parameter-toolbox {
+  color: white;
+  padding: 10px;
+  line-height: 1;
+  height: 100px;
+}
+
+.circulation-parameter-toolbox-iconbar {
+  width: 15px;
+  float: right;
+}
+
+.circulation-parameter-toolbox-header {
+  font-size: 14px; 
+  vertical-align: top; 
+}
+
+.circulation-parameter-toolbox-close {
+  float: right;
+  cursor: pointer;
+}
+
+.circulation-parameter-toolbox input {
+  padding: 5px;
+  font-size: 12px;
+  height: 26px;
+}
+
+.circulation-parameter-toolbox-add-button {
+  height: 26px;
+  float: right;
+  padding: 0 5px;
+}
+
+.circulation-parameter-toolbox-text {
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.circulation-parameter-toolbox-bottom-row {
+  display: inline-block;
+}
+
+.circulation-parameter-toolbox-annotation input {
+  width: 100%;
+  font-size: 11px;
+}
+
+.circulation-parameter-toolbox-observation input {
+  width: 80px;
+}
+
+
+/* Empty toolboxes (to the right) */
+
+.other-parameter-toolbox {
+  height: 30px;
+}
+
+.timeline-toolbox {
+  height: 35px;
+}
+
+
+/* Annotations */
+
+.circulation-annotations rect {
+  stroke: none;
+}
+
+.circulation-annotation-interval {
+  opacity: 0.5;
+}
+
+.circulation-annotation text {
+  stroke: none;
+  font-size: 11px;
+  cursor: arrow;
+}
+
+
+/* Manual observations */
+
+.circulation-manual-observation {
+  stroke: none;
+}
+
+
+/* Other parameter boxes */
+
+.table-cell {
+  fill: none;
+}
+
+.table-cell path {
+  opacity: 0.4;
+}
+
+.table-cell-value {
+  text-anchor: middle;
+  font-size: 13px;
+}
+
+
+/* History timeline box */
+
+.history-timeline-box {
+  height: 35px;
+  z-index: 1;
+}
+
+.no-pointer-events {
+  pointer-events: none;
+}
+
+.history-timeline-interval text {
+  text-anchor: middle;
+}
+
+.history-timeline-interval path {
+  opacity: 0.4;
+}
+
+.history-timeline-current-time-line  {
+  alignment-baseline: central;
+  stroke-dasharray: 10,10;
+}
+
+
+/* History interval select */
+
+.history-timeline-interval-select ,
+.history-circulation-interval-select {
+  position: absolute; 
+  width: 100%;
+}
+
+.history-circulation-interval-select {
+  z-index: 3;
+}
+
+.history-interval-select rect {
+  stroke: none;
+}
+
+.history-interval-select-toggle {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  pointer-events: all;
+  padding: 3px 6px 0 6px;
+  font-size: 15px;
+  z-index: 4;
+}
+
+.history-interval-selector-box {
+  opacity: 0.5;
+  cursor: move;
+  pointer-events: all;
+}
+
+.history-interval-selector {
+  cursor: ew-resize;
+  pointer-events: all;
+}
+
+
+
+/* Min Max */
+
+.circulation-line-chart-min-max path {
+  stroke-dasharray: 5,5;
+}
+
+.circulation-line-chart-min-max text {
+  stroke: none;
+}
+
+
+/* Ordination */ 
+
+.circulation-line-chart-ordination {
+  position: absolute;
+  z-index: 2;
+  height: 100px;
+  width: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.circulation-line-chart-ordination-info {
+  position: absolute;
+  right: 15px;
+  pointer-events: all;
+  cursor: default;
+}
+
+.circulation-line-chart-ordination-line {
+  height: 1px;
+  position: absolute;
+  width: 100%;
+}
+
+
+/* Responsive design */
+
+@media screen and (max-width: 992px) {
+  .circulation-parameter-toolbox-observation input {
+    width: 60px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .circulation-parameter-toolbox-observation input {
+    width: 50px;
+    font-size: 10px;
+  }
+
+  .circulation-parameter-toolbox-header,
+  .circulation-parameter-toolbox-close {
+    font-size:  12px;
+  } 
+}
+
+@media screen and (max-width: 666px) {
+  .circulation-parameter-toolbox {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 567px) {
+
+  .history-container {
+    font-size: 10px;
+  }
+
+  .light-observation-box,
+  .history-container .history-box-label,
+  .circulation-parameter-history-box .history-box-label {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .history-container .transparent-select select {
+    background: transparent;
+    padding-right: 10px;
+    text-overflow: ellipsis;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  
+  .light-observation-box,
+  .history-container .history-box-label,
+  .circulation-parameter-history-box .history-box-label,
+  .history-container .transparent-select select {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+}

@@ -1,0 +1,13 @@
+node_modules
+.tmp
+.idea/
+.sass-cache
+bower_components
+
+# Configuration files
+config_production.json
+config_development.json
+app/scripts/config.js
+
+fhir-capacity-webapp.zip
+dist/

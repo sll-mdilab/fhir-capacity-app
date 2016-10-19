@@ -1,0 +1,95 @@
+
+/* Menu lists */
+
+.human-menu-title {
+	margin-bottom: 0;
+	padding-bottom: 2px;
+	line-height: 26px;
+}
+
+.human-menu-item {
+	line-height: 22px;
+	position: relative;
+}
+
+.human-menu-information {
+	padding-left: 10px;
+	font-size: 12px;
+}
+
+.human-menu-add {
+	float: right;
+}
+
+.human-menu-add,
+.human-model-attribute {
+	cursor: pointer;
+	padding: 4px;
+	border-radius: 4px;
+}
+
+
+/* Human model */
+
+.human-model-container {
+	text-align: center;
+}
+
+.human-model-attribute {
+	z-index: 2;
+	position: absolute;
+	right: -30px;
+	top: 11px;
+}
+
+
+/* Radio buttons */
+
+.clinical-model {
+	text-align: center;
+}
+
+.clinical-model-option {
+	cursor: pointer;
+	display: inline-block;
+	margin: 0 20px;
+}
+
+input[type=radio] {
+	cursor: pointer;
+	margin-top: 3px;
+}
+
+
+/* Responsive */
+
+@media screen and (max-width: 767px) {
+	.human-model-attribute {
+		right: 40px;
+	}
+}
+
+.glyphicon-spin {
+    -webkit-animation: spin 1000ms infinite linear;
+    animation: spin 1000ms infinite linear;
+}
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}

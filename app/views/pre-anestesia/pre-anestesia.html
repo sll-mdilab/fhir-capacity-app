@@ -1,0 +1,95 @@
+<div ui-view="header"></div>
+
+<div class="container ordination-container">
+  
+  <!--- Patient data -->
+  <div class="row patient-details">
+    <div class="col-xs-6 patient-details-left no-padding">
+      <h2 ng-bind="vm.config.patient.name[0].text"></h2>
+    </div>
+    <div class="col-xs-6 patient-details-right no-padding">
+      <h2 ng-bind="vm.config.patient.id"></h2>
+    </div>
+  </div>
+
+  <!--- Message if Questionnaire is missing -->
+  <div ng-show="vm.questionnaireResponseIsMissing">Questionnaire is missing</div>
+
+  <!--- Questionnaire response container -->
+  <div ng-show="vm.questionnaireResponseExists">
+    <div class="grey-background margin-top-20 padding-10" >
+      
+      <!--- Header -->
+      <div class="row">
+        <div class="col col-xs-6">
+          <h2 class="no-margin">Pre-anestesia</h2>
+          <p>
+            Form status: 
+            <span class="green-font" ng-if="vm.isCompleted">Completed</span>
+            <span class="red-font" ng-if="!vm.isCompleted">Draft</span>
+          </p>
+        </div>
+        <div class="col col-xs-6 text-align-right">
+          <button class="button green-button" ng-click="vm.savePreAnestesiaAssessment()">
+            Save
+          </button>
+        </div>
+      </div>      
+
+      <!--- Comment field -->
+      <div contenteditable class="long-text-input light-grey-background margin-bottom-10" 
+                ng-model="vm.questionnaireResponse.styleObjects.overallAssessment" ng-blur="vm.savePreAnestesiaAssessment()">
+      </div>
+
+      <!--- Order information -->
+      <span>Parameters: </span>
+      <span class="yellow-font text-decoration-underline  cursor-pointer" ng-click="vm.changeLocation('ordination', vm.config)">
+        {{ vm.nOrderedParameters }} orders
+      </span>
+      <span class="margin-left-40">Medication: </span>
+      <span class="yellow-font text-decoration-underline cursor-pointer" ng-click="vm.changeLocation('ordination', vm.config)">
+        {{ vm.nOrderedMedications }} orders
+      </span>
+    </div>
+
+    <!--- Form -->
+    <div class="pre-anestesia-question row no-margin margin-top-40">
+      
+      <!--- Header -->
+      <div class="col col-xs-6 no-padding">
+        <h2>Patient answers</h2>
+      </div>
+      <div class="col col-xs-6 no-padding">
+        <h2 class="margin-left-10">Doctor answers</h2>
+      </div>
+    </div>
+
+    <!--- Content -->
+    <div class="pre-anestesia-question row no-margin margin-bottom-40" 
+              ng-repeat="question in vm.questionnaireResponse.styleObjects.questions">
+      
+      <!--- Patient answers -->
+      <div class="col col-xs-6 no-padding">
+        <div class="grey-background padding-10 margin-right-10">
+          <p class="no-margin" ng-bind="question.patient.question"></p>
+          <p class="green-font" ng-show="question.patient.answers.boolean">Ja</p>
+          <p class="red-font" ng-hide="question.patient.answers.boolean">Nej</p>
+          <p class="no-margin">Kommentar: </p>
+          <p class="" ng-bind="question.patient.answers.string" style="font-size:12px"></p>
+        </div>
+      </div>
+
+      <!--- Doctor answers -->
+      <div class="col col-xs-6 no-padding">
+        <div class="grey-background padding-10 margin-left-10">
+          <p class="no-margin" ng-bind="question.personal.question"></p>
+          <p class="green-font" ng-show="question.personal.answers.boolean">Ja</p>
+          <p class="red-font" ng-hide="question.personal.answers.boolean">Nej</p>
+          <p class="no-margin">Kommentar: </p>
+          <p class="" ng-bind="question.personal.answers.string" style="font-size:12px"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

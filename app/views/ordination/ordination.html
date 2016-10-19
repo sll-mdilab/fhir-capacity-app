@@ -1,0 +1,244 @@
+<div ui-view="header"></div>
+
+<div class="container ordination-container margin-bottom-20">
+
+  <!--- Patient details -->
+  <div class="row patient-details">
+    <div class="col-xs-6 patient-details-left no-padding">
+      <h2 ng-bind="vm.config.patient.name[0].text"></h2>
+    </div>
+    <div class="col-xs-6 patient-details-right no-padding">
+      <h2 ng-bind="vm.config.patient.id"></h2>
+    </div>
+  </div>
+
+  <!--- Parameter header -->
+  <div class="row margin-top-20 margin-bottom-20"> 
+    <div class="col-sm-7">
+      <div class="add-ordination-input input-group light-grey-background">
+        <p class="input-group-label light-grey-background grey-border-right" id="hr-data-source">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          <span>Add parameter</span>
+        </p>
+
+        <!--- Typeahead -->
+        <input id="select-parameter-input" type="text" 
+              ng-model="vm.parameterSearchField"
+              aria-describedby="parameter-id"
+              typeahead="parameter.type.text + ' (' + parameter.type.coding[0].display + ')' for parameter in vm.searchParameter($viewValue)"
+              typeahead-on-select="vm.addParameterOrder($item)">
+        </input>
+      </div>
+    </div>
+  </div>
+
+  <!--- Parameter grid -->
+  <div class="framed parameter-container">  
+
+    <!--- Parameter grid header -->
+    <div class="grid-row grid-header white-border-bottom no-margin">
+      <div class="grid-cell grey-border-right">Parameter</div>
+      <div class="grid-short-cell grid-cell grey-border-right">Alarm (min)</div>
+      <div class="grid-short-cell grid-cell grey-border-right">Warn (min)</div>
+      <div class="grid-short-cell grid-cell grey-border-right">Warn (max)</div>
+      <div class="grid-short-cell grid-cell grey-border-right">Alarm (max)</div>
+
+      <div class="grid-long-cell grid-cell grey-border-right hide-for-medium-screen">Active ordination</div>
+      <div class="grid-fixed-cell grid-cell grey-border-right">
+        <div class="parameter-status-cell"></div>
+      </div>
+    </div>
+    
+    <!--- Parameter grid content -->
+    <div class="grid-row no-margin grey-border-bottom" ng-repeat="order in vm.shownParameterOrderList">
+      
+      <!--- Parameter name -->
+      <div class="grid-cell grey-border-right" ng-class="order.styleObjects.fontClass">
+        <span class="glyphicon glyphicon-heart cursor-pointer hide-for-xsmall-screen" aria-hidden="true"
+                  ng-if="order.includedObjects.parameter.extension[0].valueString == 'circulation'">
+        </span> 
+        <span class="hide-for-small-screen">{{order.includedObjects.parameter.type.text}} 
+          ({{order.includedObjects.parameter.type.coding[0].display}})
+        </span>
+        <span class="show-for-small-screen"> {{order.includedObjects.parameter.type.coding[0].display}} </span>
+      </div>
+
+      <!--- Alarm limits -->
+      <div class="grid-short-cell grid-cell grey-border-right">
+        <input type="number" class="light-grey-background" ng-blur="vm.updateParameterOrder(order)"
+                  ng-model="order.styleObjects.alarmLimits.lowerAlarm"/>
+      </div>
+      <div class="grid-short-cell grid-cell grey-border-right">
+        <input type="number" class="light-grey-background" ng-blur="vm.updateParameterOrder(order)" 
+                    ng-model="order.styleObjects.alarmLimits.lowerWarning"/>
+      </div>
+      <div class="grid-short-cell grid-cell grey-border-right">
+        <input type="number" class="light-grey-background" ng-blur="vm.updateParameterOrder(order)" 
+                  ng-model="order.styleObjects.alarmLimits.upperWarning"/>
+      </div>
+      <div class="grid-short-cell grid-cell grey-border-right">
+        <input type="number" class="light-grey-background" ng-blur="vm.updateParameterOrder(order)" 
+                  ng-model="order.styleObjects.alarmLimits.upperAlarm"/>
+      </div>
+
+      <!--- Target medication ordination -->
+      <div class="grid-long-cell grid-cell grey-border-right hide-for-medium-screen">
+        <p>
+          {{order.styleObjects.ordination.medication}}
+          {{order.styleObjects.ordination.lowerOrdinationLimit}} - 
+          {{order.styleObjects.ordination.upperOrdinationLimit}}
+        </p>
+      </div>
+
+      <!--- Toolbox -->
+      <div class="grid-fixed-cell grid-cell grey-border-right">
+        <div class="parameter-status-cell">
+          <span class="glyphicon glyphicon-remove cursor-pointer" aria-hidden="true" ng-click="vm.deleteParameterOrder(order)" 
+                  ng-if="!(order.styleObjects.cantRemove)"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--- Medication header -->
+  <div class="row margin-top-60 margin-bottom-20"> 
+    <div class="col-sm-7">
+      <div class="add-ordination-input input-group light-grey-background">
+        <p class="input-group-label light-grey-background grey-border-right" id="hr-data-source">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          <span>Add medication</span>
+        </p>
+
+        <!--- Typeahead -->
+        <input id="select-medication-input" type="text" 
+              ng-model="vm.medicationSearchField"
+              aria-describedby="medication-id"
+              typeahead="medication.code.text for medication in vm.searchMedication($viewValue)"
+              typeahead-on-select="vm.addMedicationOrder($item)">
+        </input>
+      </div>
+    </div>
+    <div class="col-sm-1">
+    </div>
+
+    <!--- Predefined medication orders -->
+    <div class="col-sm-4">      
+      <button type="button" ng-click="vm.showMedicationObservationModal()" class="button blue-button full-width-button">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        Add predefined medication orders
+      </button>
+    </div>
+  </div>
+
+    <!--- Medication grid -->
+  <div class="framed medication-container">  
+    <div ui-view="medication-header"></div>
+
+    <div ng-repeat="order in vm.shownMedicationOrderList">
+      
+      <!--- Medication grid row -->
+      <div class="grid-row no-margin grey-border-bottom">
+        
+        <!--- Medication name -->
+        <div class="grid-dynamic-cell grid-cell grey-border-right">
+          <p ng-bind="order.includedObjects.medication.code.text"></p>
+        </div>
+
+         <!--- Type -->
+        <div class="grid-short-cell grid-cell grey-border-right cursor-pointer" ng-click="vm.toggleDoseType(order)">
+          <p ng-bind="order.styleObjects.doseType.display"></p>
+          <p class="medication-dose-toggle light-blue-font">
+            <span class="medication-dose-toggle-arrow glyphicon glyphicon-chevron-left"></span>
+            <span>Change</span>
+            <span class="medication-dose-toggle-arrow glyphicon glyphicon-chevron-right"></span>
+          </p>
+        </div>
+
+        <!--- Dose -->
+        <div class="grid-long-cell medication-dose-container grid-cell grey-border-right hide-for-small-screen">
+          <div ui-view="medication-doses"></div>
+        </div>
+        
+        <!--- Start time -->
+        <div class="grid-short-cell grid-cell grey-border-right">
+          <input time-input type="text" class="light-grey-background" time-variable="order.styleObjects.startTime"
+                    ng-blur="updateMedicationDose(order)"/>
+          <p class="required-label red-font margin-top-5" ng-if="order.styleObjects.startTimeIsMissing">Required</p>
+        </div>
+
+        <!--- Active -->
+        <div class="grid-short-cell grid-cell grey-border-right">
+          <form class="switch-container">
+            <switch id="enabled" name="orderStatus" ng-model="order.styleObjects.isActive" 
+                    ng-change="vm.changeOrdinationStatus(order)">
+            </switch>
+          </form class="switch-container">
+        </div>
+
+        <!--- Status -->
+        <div class="grid-fixed-cell grid-cell">
+          <div class="medication-status-cell" ng-init="displayInformationBox = false">
+            
+            <!--- Icon box -->
+            <span class="glyphicon glyphicon-info-sign cursor-pointer" aria-hidden="true" 
+                  ng-click="displayInformationBox = !displayInformationBox">
+            </span> 
+            <span class="glyphicon glyphicon-remove cursor-pointer" aria-hidden="true" 
+                  ng-click="vm.deleteMedicationOrder(order)">
+            </span>         
+          </div> 
+        </div>
+
+      </div>
+
+      <!--- Medication grid additional information row -->
+      <div class="medication-additional-information-box" ng-show="displayInformationBox">
+
+        <!--- Header -->
+        <div class="row no-margin">
+          <div class="col col-sm-6 medication-additional-information-left-content padding-10">
+            <h2 class="no-margin" ng-bind="order.includedObjects.medication.code.text"></h2>
+            <p ng-if="order.includedObjects.medication.styleObjects.concentration">
+              <span>Concentration: </span>
+              <span ng-bind="order.includedObjects.medication.styleObjects.concentration.numerator.value"></span>
+              <span ng-bind="order.includedObjects.medication.styleObjects.concentration.numerator.unit"></span>
+              <span>/</span>
+              <span ng-bind="order.includedObjects.medication.styleObjects.concentration.denominator.value"></span>
+              <span ng-bind="order.includedObjects.medication.styleObjects.concentration.denominator.unit"></span>
+            </p>
+          </div>
+          <div class="col col-sm-6 medication-additional-information-right-content padding-10">
+            <h3 class="no-margin no-padding">Prescription: {{order.includedObjects.prescriber.name.text}}</h3>
+            <p class="margin-right-10" ng-bind="order.styleObjects.formattedDateWritten"></p>                
+          </div>
+          <span class="medication-additional-information-box-close glyphicon glyphicon-remove-circle cursor-pointer"
+                ng-click="displayInformationBox = false"></span>
+        </div>
+
+        <!--- Preparation and side effects -->
+        <div class="row no-margin" ng-if="order.includedObjects.medication.extension">
+          <div class="col col-sm-6 medication-additional-information-left-content padding-10">
+            <h3 ng-if="order.includedObjects.medication.styleObjects.preparation" class="no-margin">Preparation:</h3>
+            <p ng-bind="order.includedObjects.medication.styleObjects.preparation"></p>
+          </div>
+          <div class="col col-sm-6 medication-additional-information-right-content padding-10">
+              <h3 ng-if="order.includedObjects.medication.styleObjects.sideEffects" class="no-margin">
+                Common side effects: 
+              </h3>
+              <ul class="no-margin">
+                <li ng-repeat="sideEffect in order.includedObjects.medication.styleObjects.sideEffects">
+                  {{sideEffect}}
+                </li>
+              </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div ui-view="medication-list-modal"></div>
+
+</div>
+
